@@ -1,10 +1,11 @@
-const settingsButton = document.querySelector(".button_round:last-of-type");
-const modal = document.querySelector(".modal");
+import {getStartScreen} from "./js/start-screen.js";
 
-settingsButton.addEventListener("click", () => {
-  modal.showModal();
-})
+const page = getEmbeddedStartScreen();
 
-modal.addEventListener("click", (e) => {
-  if (e.target.contains(modal)) modal.close();
-})
+// Get start page embedded in the document
+function getEmbeddedStartScreen() {
+  const main = document.createElement('main');
+  main.append(getStartScreen());
+  document.body.append(main);
+  return main;
+}

@@ -1,0 +1,15 @@
+$link-size: 2rem;
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: $link-size;
+
+  &__icon {
+    width: $link-size;
+    height: auto;
+    object-fit: contain;
+  }
+}

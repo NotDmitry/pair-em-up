@@ -25,16 +25,36 @@ export class Game {
   }
 
   createChaoticField() {
-    const initial = [];
+    const elements = [];
     for (let i = 0; i < this.START_BOUND; i++) {
-      initial.push(Utils.getRandomIntInclusive(1, this.WIDTH));
+      elements.push(Utils.getRandomIntInclusive(1, this.WIDTH));
     }
-    Utils.adjustBoundedMatrix(this.field, initial, this.WIDTH);
+    this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
   }
 
   deleteValueByIndices(...indices) {
     let [i, j] = Array.isArray(indices[0]) ? indices[0] : indices;
     this.field[i][j] = null;
+  }
+
+  appendClassicField() {
+    const elements = this.getRemainingValues();
+    this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
+  }
+
+  appendRandomField() {
+    const elements = this.getRemainingValues();
+    const shuffledElements = Utils.fisherYatesShuffle(elements);
+    this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
+  }
+
+  appendChaoticField() {
+    const elements = [];
+    const length = this.getRemainingValues().length;
+    for (let i = 0; i < length; i++) {
+      elements.push(Utils.getRandomIntInclusive(1, this.WIDTH));
+    }
+    this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
   }
 
   getRemainingPositions() {

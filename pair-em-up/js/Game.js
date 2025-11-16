@@ -51,4 +51,14 @@ export class Game {
     return this.getRemainingPositions().map(([i, j]) => this.field[i][j]);
   }
 
+  shuffleField() {
+    const values = this.getRemainingValues();
+    const positions = this.getRemainingPositions();
+
+    const shuffledValues = Utils.fisherYatesShuffle(values);
+    positions.forEach(([i, j], index) => {
+      this.field[i][j] = shuffledValues[index];
+    });
+  }
+
 }

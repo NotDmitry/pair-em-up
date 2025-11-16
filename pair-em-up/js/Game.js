@@ -1,8 +1,9 @@
 import {Utils} from "./Utils.js";
 
 export class Game {
-  constructor() {
+  constructor(mode) {
     this.MODES = ['Classic', 'Random', 'Chaotic'];
+    this.mode = this.MODES.includes(mode) ? mode : this.MODES[0];
     this.INITIAL = [
       ...Array.from({length: 9}, (_, i) => `${i + 1}`),
       ...Array.from({length: 9}, (_, i) => `${i + 11}`),
@@ -15,7 +16,8 @@ export class Game {
 
   createClassicField(initial = this.INITIAL) {
     const elements = initial.flatMap((num) => {
-      return num.split('').map((digit) => String(digit));
+      return num.split('')
+        .map((digit) => String(digit));
     });
     this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
   }
@@ -68,7 +70,8 @@ export class Game {
   }
 
   getRemainingValues() {
-    return this.getRemainingPositions().map(([i, j]) => this.field[i][j]);
+    return this.getRemainingPositions()
+      .map(([i, j]) => this.field[i][j]);
   }
 
   shuffleField() {
@@ -80,5 +83,34 @@ export class Game {
       this.field[i][j] = shuffledValues[index];
     });
   }
+
+  createField() {
+    switch (this.mode) {
+      case 'Classic':
+        this.createClassicField();
+        break;
+      case 'Random':
+        this.createRandomField();
+        break;
+      case 'Chaotic':
+        this.createChaoticField();
+        break;
+    }
+  }
+
+  appendField() {
+    switch (this.mode) {
+      case 'Classic':
+        this.appendClassicField();
+        break;
+      case 'Random':
+        this.appendRandomField();
+        break;
+      case 'Chaotic':
+        this.appendChaoticField();
+        break;
+    }
+  }
+
 
 }

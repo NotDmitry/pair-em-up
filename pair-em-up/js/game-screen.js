@@ -11,6 +11,7 @@ export function getGameScreen(mode, backBtnCallback) {
   const cell = document.createElement('button');
 
   gameScreen.classList.add('game-screen');
+  title.classList.add('game-screen__title');
   header.classList.add('game-screen__header');
   roundBtn.classList.add('button', 'button_round');
   roundBtnIcon.classList.add('button__icon');
@@ -28,29 +29,57 @@ export function getGameScreen(mode, backBtnCallback) {
     backBtnCallback();
   })
 
-  // Game logic Controller and View
-  const game = new Game(mode);
-  game.createField();
-
-  // Field cells
-  const viewMatrix = game.field.map((row) => {
-    return row.map((value) => {
-      const newCell = cell.cloneNode(true);
-      if (value !== null) {
-        newCell.append(document.createTextNode(`${value}`));
-      }
-      return newCell;
-    });
-  });
-  const cells = viewMatrix.flat();
-
-  // Title
-  title.classList.add('game-screen__title');
-  title.append(document.createTextNode(`${game.mode}`));
-
-  field.append(...cells);
   main.append(field);
   header.append(backBtn, title);
   gameScreen.append(header, main);
+
+  // Game logic Controller and View
+  const game = new Game(mode);
+  title.append(document.createTextNode(`${game.mode}`));
+  let selectedCell = null;
+  game.createField();
+  const viewMatrix = getRenderedCells(game.field);
+
+
   return gameScreen;
+
+  function getRenderedCells(gameField) {
+    const cells = gameField.map((row, i) => {
+      return row.map((value, j) => {
+        const cellBtn = cell.cloneNode(true);
+        cellBtn.dataset.i = String(i);
+        cellBtn.dataset.j = String(j);
+        if (value !== null) {
+          cellBtn.append(document.createTextNode(`${value}`));
+        }
+
+        cellBtn.addEventListener('click', () => {
+          if (selectedCell === null) {
+            selectedCell = cellBtn;
+            cellBtn.classList.add('game-screen__cell_selected');
+            return;
+          }
+
+          if (selectedCell === cellBtn) {
+            selectedCell = null;
+            cellBtn.classList.remove('game-screen__cell_selected');
+            return;
+          }
+
+          const firstIndices = [selectedCell.dataset.i, selectedCell.dataset.j];
+          const secondIndices = [cellBtn.dataset.i, cellBtn.dataset.j];
+
+          if (game.isValidCellPair(firstIndices, secondIndices)) {
+            selectedCell.classList.remove('game-screen__cell_selected');
+            cellBtn.classList.remove('game-screen__cell_selected');
+            selectedCell = null;
+          }
+        });
+
+        return cellBtn;
+      });
+    });
+    field.replaceChildren(...cells.flat());
+    return cells;
+  }
 }

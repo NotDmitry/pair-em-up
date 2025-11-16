@@ -241,7 +241,13 @@ summary {
   font-size: 1.2rem;
 }
 .game-screen__cell:hover {
+  background-color: yellow;
+}
+.game-screen__cell_selected {
   background-color: yellowgreen;
+}
+.game-screen__cell_selected:hover {
+  background-color: #efeeb2;
 }
 
 .social-link {

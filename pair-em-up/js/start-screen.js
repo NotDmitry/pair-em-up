@@ -24,11 +24,11 @@ export function getStartScreen(btnCallback) {
   disabledBtn.append(document.createTextNode('Continue'));
   disabledBtn.disabled = true;
   modeBtn.classList.add('start-screen__button');
-  const modeButtons = ['Classic', 'Random', 'Chaotic'].map((type) => {
+  const modeButtons = ['Classic', 'Random', 'Chaotic'].map((mode) => {
     const btnCopy = modeBtn.cloneNode(true);
-    btnCopy.append(document.createTextNode(type));
+    btnCopy.append(document.createTextNode(mode));
     btnCopy.addEventListener('click', () => {
-      btnCallback(type);
+      btnCallback(mode);
     })
     return btnCopy;
   })

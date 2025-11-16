@@ -225,6 +225,24 @@ summary {
 .game-screen__main {
   padding: 60px 20px;
 }
+.game-screen__field {
+  border: 1px solid black;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  place-items: center;
+  gap: 4px;
+  width: 100%;
+  background-color: coral;
+}
+.game-screen__cell {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 1.2rem;
+}
+.game-screen__cell:hover {
+  background-color: yellowgreen;
+}
 
 .social-link {
   display: flex;

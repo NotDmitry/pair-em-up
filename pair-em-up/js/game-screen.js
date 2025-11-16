@@ -1,3 +1,5 @@
+import {Game} from './Game.js';
+
 export function getGameScreen(mode, backBtnCallback) {
   const gameScreen = document.createElement('div');
   const header = document.createElement('header');
@@ -13,9 +15,8 @@ export function getGameScreen(mode, backBtnCallback) {
   roundBtn.classList.add('button', 'button_round');
   roundBtnIcon.classList.add('button__icon');
   main.classList.add('game-screen__main');
-
-  title.classList.add('game-screen__title');
-  title.append(document.createTextNode(mode));
+  field.classList.add('game-screen__field');
+  cell.classList.add('game-screen__cell');
 
   // Return button
   const backBtn = roundBtn.cloneNode(true);
@@ -27,6 +28,28 @@ export function getGameScreen(mode, backBtnCallback) {
     backBtnCallback();
   })
 
+  // Game logic Controller and View
+  const game = new Game(mode);
+  game.createField();
+
+  // Field cells
+  const viewMatrix = game.field.map((row) => {
+    return row.map((value) => {
+      const newCell = cell.cloneNode(true);
+      if (value !== null) {
+        newCell.append(document.createTextNode(`${value}`));
+      }
+      return newCell;
+    });
+  });
+  const cells = viewMatrix.flat();
+
+  // Title
+  title.classList.add('game-screen__title');
+  title.append(document.createTextNode(`${game.mode}`));
+
+  field.append(...cells);
+  main.append(field);
   header.append(backBtn, title);
   gameScreen.append(header, main);
   return gameScreen;

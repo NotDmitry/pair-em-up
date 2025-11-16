@@ -22,6 +22,14 @@
 
   &__main {
     padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__score {
+    font-size: 1.5rem;
+    font-weight: 300;
   }
 
   &__field {

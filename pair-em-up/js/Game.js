@@ -112,5 +112,39 @@ export class Game {
     }
   }
 
+  isValidCellPair(pair1, pair2) {
+    let [i1, j1] = pair1;
+    let [i2, j2] = pair2;
+
+    [i1, j1] = [Number(i1), Number(j1)];
+    [i2, j2] = [Number(i2), Number(j2)];
+
+    const [top, bottom] = [i1, i2].sort((a, b) => a - b);
+
+    const isVerticalPath = () => {
+      if (j1 === j2) {
+        for (let i = top + 1; i < bottom; i++) {
+          if (this.field[i][j1] !== null) return false;
+        }
+        return true;
+      }
+      return false;
+    }
+
+    const isOverflowPath = () => {
+      const flatIndex1 = i1 * this.WIDTH + j1;
+      const flatIndex2 = i2 * this.WIDTH + j2;
+      const [start, end] = [flatIndex1, flatIndex2].sort((a, b) => a - b);
+      const range = this.field.flat()
+        .slice(start + 1, end);
+
+      for (let i = 0; i < range.length; i++) {
+        if (range[i] !== null) return false;
+      }
+      return true;
+    }
+
+    return isOverflowPath() || isVerticalPath();
+  }
 
 }

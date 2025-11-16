@@ -8,8 +8,14 @@ export function getGameScreen(mode, backBtnCallback) {
   const field = document.createElement('div');
   const cell = document.createElement('button');
 
+  gameScreen.classList.add('game-screen');
+  header.classList.add('game-screen__header');
   roundBtn.classList.add('button', 'button_round');
   roundBtnIcon.classList.add('button__icon');
+  main.classList.add('game-screen__main');
+
+  title.classList.add('game-screen__title');
+  title.append(document.createTextNode(mode));
 
   // Return button
   const backBtn = roundBtn.cloneNode(true);
@@ -20,8 +26,6 @@ export function getGameScreen(mode, backBtnCallback) {
   backBtn.addEventListener('click', () => {
     backBtnCallback();
   })
-
-  title.append(document.createTextNode(mode));
 
   header.append(backBtn, title);
   gameScreen.append(header, main);

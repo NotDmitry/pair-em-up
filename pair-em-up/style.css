@@ -202,6 +202,30 @@ summary {
   gap: 20px;
 }
 
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+}
+.game-screen__title {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+}
+.game-screen__header {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  background-color: silver;
+}
+.game-screen__main {
+  padding: 60px 20px;
+}
+
 .social-link {
   display: flex;
   align-items: center;
@@ -258,6 +282,7 @@ summary {
 .button_round {
   width: 4rem;
   height: 4rem;
+  border: 2px solid black;
   border-radius: 50%;
 }
 

@@ -1,11 +1,12 @@
 import {getStartScreen} from "./js/start-screen.js";
 
-const page = getEmbeddedStartScreen();
+const app = document.createElement('div');
+app.id = 'app';
+document.body.append(app);
 
-// Get start page embedded in the document
-function getEmbeddedStartScreen() {
-  const main = document.createElement('main');
-  main.append(getStartScreen());
-  document.body.append(main);
-  return main;
+const startScreen = getStartScreen((type) => alert(type));
+showStartScreen(startScreen);
+
+function showStartScreen(startScreen) {
+  app.replaceChildren(startScreen);
 }

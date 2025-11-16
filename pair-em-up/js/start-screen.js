@@ -1,4 +1,4 @@
-export function getStartScreen() {
+export function getStartScreen(btnCallback) {
   const startScreen = document.createElement("div");
   const title = document.createElement("h1");
   const modes = document.createElement("div");
@@ -27,6 +27,9 @@ export function getStartScreen() {
   const modeButtons = ['Classic', 'Random', 'Chaotic'].map((type) => {
     const btnCopy = modeBtn.cloneNode(true);
     btnCopy.append(document.createTextNode(type));
+    btnCopy.addEventListener('click', () => {
+      btnCallback(type);
+    })
     return btnCopy;
   })
   modes.append(disabledBtn, ...modeButtons);

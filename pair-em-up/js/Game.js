@@ -3,6 +3,7 @@ import {Utils} from "./Utils.js";
 export class Game {
   constructor(mode) {
     this.MODES = ['Classic', 'Random', 'Chaotic'];
+    this.POINTS = [1, 2, 3];
     this.mode = this.MODES.includes(mode) ? mode : this.MODES[0];
     this.INITIAL = [
       ...Array.from({length: 9}, (_, i) => `${i + 1}`),
@@ -110,6 +111,28 @@ export class Game {
         this.appendChaoticField();
         break;
     }
+  }
+
+  getPoints(pair1, pair2) {
+    let [i1, j1] = pair1;
+    let [i2, j2] = pair2;
+
+    [i1, j1] = [Number(i1), Number(j1)];
+    [i2, j2] = [Number(i2), Number(j2)];
+
+    if (this.field[i1][j1] === 5 && this.field[i2][j2] === 5) {
+      return this.POINTS[3];
+    }
+
+    if (this.field[i1][j1] + this.field[i2][j2] === 10) {
+      return this.POINTS[1];
+    }
+
+    if (this.field[i1][j1] === this.field[i2][j2]) {
+      return this.POINTS[0];
+    }
+
+    return 0;
   }
 
   isValidCellPair(pair1, pair2) {

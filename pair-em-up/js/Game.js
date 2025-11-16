@@ -18,7 +18,7 @@ export class Game {
   createClassicField(initial = this.INITIAL) {
     const elements = initial.flatMap((num) => {
       return num.split('')
-        .map((digit) => String(digit));
+        .map((digit) => Number(digit));
     });
     this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
   }
@@ -117,9 +117,6 @@ export class Game {
     let [i1, j1] = pair1;
     let [i2, j2] = pair2;
 
-    [i1, j1] = [Number(i1), Number(j1)];
-    [i2, j2] = [Number(i2), Number(j2)];
-
     if (this.field[i1][j1] === 5 && this.field[i2][j2] === 5) {
       return this.POINTS[3];
     }
@@ -138,9 +135,6 @@ export class Game {
   isValidCellPair(pair1, pair2) {
     let [i1, j1] = pair1;
     let [i2, j2] = pair2;
-
-    [i1, j1] = [Number(i1), Number(j1)];
-    [i2, j2] = [Number(i2), Number(j2)];
 
     const [top, bottom] = [i1, i2].sort((a, b) => a - b);
 

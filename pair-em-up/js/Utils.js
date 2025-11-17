@@ -21,5 +21,9 @@ export class Utils {
     }
     return copy;
   }
+
+  static sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
 

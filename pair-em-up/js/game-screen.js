@@ -23,6 +23,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const hints = document.createElement('div');
   hints.classList.add('game-screen__hints');
 
+  const loadSaveBtn = document.createElement('button');
+  loadSaveBtn.classList.add('button', 'button_hint');
+  loadSaveBtn.textContent = 'Continue';
+
   const addCells = document.createElement('button');
   addCells.classList.add('button', 'button_hint');
 
@@ -84,12 +88,16 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     settingsModal.open();
   })
 
-  header.append(backBtn, saveBtn, title, settingsBtn, restartBtn);
+  header.append(backBtn, saveBtn, loadSaveBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
   main.append(hints, score, moves, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View
+  if (!localStorage.getItem('savedGame')) {
+    loadSaveBtn.disabled = true;
+  }
+
   const game = new Game(mode);
   let selectedCell = null;
   let lock = false;
@@ -203,6 +211,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   saveBtn.addEventListener('click', () => {
     saveGame();
+    loadSaveBtn.disabled = false;
+  })
+
+  loadSaveBtn.addEventListener('click', () => {
+    loadGame();
   })
 
   return gameScreen;
@@ -261,11 +274,30 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       field: game.field,
       score: game.score,
       mode: game.mode,
-      backup: game.backup,
+      backup: revert.disabled ? {} : game.backup,
       addRowsUses: game.addRowsUses,
       shuffleUses: game.shuffleUses,
       eraserUses: game.eraserUses
     }
     localStorage.setItem('savedGame', JSON.stringify(saveData));
+  }
+
+  function loadGame() {
+    let savedGame = localStorage.getItem('savedGame');
+
+    if (savedGame) {
+      savedGame = JSON.parse(savedGame);
+      game.field = savedGame.field;
+      game.score = savedGame.score;
+      game.mode = savedGame.mode;
+      game.backup = savedGame.backup;
+      game.addRowsUses = savedGame.addRowsUses;
+      game.shuffleUses = savedGame.shuffleUses;
+      game.eraserUses = savedGame.eraserUses;
+
+      revert.disabled = !Boolean(game.backup.field);
+      renderCaptions();
+      renderField();
+    }
   }
 }

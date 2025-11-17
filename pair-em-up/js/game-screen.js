@@ -28,6 +28,9 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   const shuffleCells = document.createElement('button');
   shuffleCells.classList.add('button', 'button_hint');
 
+  const eraseCell = document.createElement('button');
+  eraseCell.classList.add('button', 'button_hint');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -55,7 +58,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   restartBtn.append(restartBtnIcon);
 
   header.append(backBtn, title, restartBtn);
-  hints.append(addCells, shuffleCells);
+  hints.append(addCells, shuffleCells, eraseCell);
   main.append(hints, score, field);
   gameScreen.append(header, main);
 
@@ -67,6 +70,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   score.textContent = `Score: ${game.score}`;
   addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
   shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
+  eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
 
   let selectedCell = null;
 
@@ -142,6 +146,16 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
       game.shuffleField();
       game.shuffleUses -= 1;
       shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
+      renderField();
+    }
+  })
+
+  eraseCell.addEventListener('click', () => {
+    if (game.eraserUses > 0 && selectedCell !== null) {
+      const [i, j] = [Number(selectedCell.dataset.i), Number(selectedCell.dataset.j)];
+      game.deleteValueByIndices([i, j]);
+      game.eraserUses -= 1;
+      eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
       renderField();
     }
   })

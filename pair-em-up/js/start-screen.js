@@ -1,4 +1,4 @@
-export function getStartScreen(btnCallback) {
+export function getStartScreen(btnCallback, settingsCallback) {
   const startScreen = document.createElement("div");
   const title = document.createElement("h1");
   const modes = document.createElement("div");
@@ -40,6 +40,9 @@ export function getStartScreen(btnCallback) {
   settingsBtnIcon.src = './assets/svg/settings.svg';
   settingsBtnIcon.alt = 'Settings icon';
   settingsBtn.append(settingsBtnIcon);
+  settingsBtn.addEventListener('click', () => {
+    settingsCallback();
+  })
 
   // Records button
   const recordBtn = roundBtn.cloneNode(true);

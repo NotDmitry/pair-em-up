@@ -1,7 +1,7 @@
 import {Game} from './Game.js';
 import {Utils} from './Utils.js';
 
-export function getGameScreen(mode, returnCallback, restartCallback) {
+export function getGameScreen(mode, returnCallback, restartCallback, settingsCallback) {
   const gameScreen = document.createElement('div');
   gameScreen.classList.add('game-screen');
 
@@ -55,7 +55,17 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   restartBtnIcon.alt = 'Restart icon';
   restartBtn.append(restartBtnIcon);
 
-  header.append(backBtn, title, restartBtn);
+  // Settings button
+  const settingsBtn = roundBtn.cloneNode(true);
+  const settingsBtnIcon = roundBtnIcon.cloneNode(true);
+  settingsBtnIcon.src = './assets/svg/settings.svg';
+  settingsBtnIcon.alt = 'Settings icon';
+  settingsBtn.append(settingsBtnIcon);
+  settingsBtn.addEventListener('click', () => {
+    settingsCallback();
+  })
+
+  header.append(backBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell);
   main.append(hints, score, field);
   gameScreen.append(header, main);

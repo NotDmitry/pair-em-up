@@ -57,6 +57,13 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     returnCallback();
   })
 
+  // Save button
+  const saveBtn = roundBtn.cloneNode(true);
+  const saveBtnIcon = roundBtnIcon.cloneNode(true);
+  saveBtnIcon.src = './assets/svg/save.svg';
+  saveBtnIcon.alt = 'Save icon';
+  saveBtn.append(saveBtnIcon);
+
   // Restart button
   const restartBtn = roundBtn.cloneNode(true);
   const restartBtnIcon = roundBtnIcon.cloneNode(true);
@@ -77,7 +84,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     settingsModal.open();
   })
 
-  header.append(backBtn, title, settingsBtn, restartBtn);
+  header.append(backBtn, saveBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
   main.append(hints, score, moves, field);
   gameScreen.append(header, main);
@@ -194,6 +201,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     renderField();
   })
 
+  saveBtn.addEventListener('click', () => {
+    saveGame();
+  })
+
   return gameScreen;
 
   function renderCaptions() {
@@ -243,5 +254,18 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       );
       resultModal.open();
     }
+  }
+
+  function saveGame() {
+    const saveData = {
+      field: game.field,
+      score: game.score,
+      mode: game.mode,
+      backup: game.backup,
+      addRowsUses: game.addRowsUses,
+      shuffleUses: game.shuffleUses,
+      eraserUses: game.eraserUses
+    }
+    localStorage.setItem('savedGame', JSON.stringify(saveData));
   }
 }

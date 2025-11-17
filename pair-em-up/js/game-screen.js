@@ -117,9 +117,13 @@ export function getGameScreen(mode, backBtnCallback) {
     }
   });
 
-  addCells.addEventListener('click', (e) => {
-    game.appendField();
-    renderField();
+  addCells.addEventListener('click', () => {
+    if (game.addRowsUses > 0) {
+      game.appendField();
+      game.addRowsUses -= 1;
+      addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
+      renderField();
+    }
   })
 
   return gameScreen;

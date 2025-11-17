@@ -1,7 +1,7 @@
 import {Game} from './Game.js';
 import {Utils} from './Utils.js';
 
-export function getGameScreen(mode, returnCallback, restartCallback, settingsCallback) {
+export function getGameScreen(mode, returnCallback, restartCallback, settingsModal) {
   const gameScreen = document.createElement('div');
   gameScreen.classList.add('game-screen');
 
@@ -62,7 +62,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsCal
   settingsBtnIcon.alt = 'Settings icon';
   settingsBtn.append(settingsBtnIcon);
   settingsBtn.addEventListener('click', () => {
-    settingsCallback();
+    settingsModal.open();
   })
 
   header.append(backBtn, title, settingsBtn, restartBtn);

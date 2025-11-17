@@ -7,7 +7,7 @@ app.id = 'app';
 document.body.append(app);
 
 const settingsModal = getSettingsModal();
-document.body.append(settingsModal);
+document.body.append(settingsModal.modal);
 
 showStartScreen();
 
@@ -16,9 +16,7 @@ function showStartScreen() {
     (mode) => {
       showGameScreen(mode);
     },
-    () => {
-      settingsModal.showModal();
-    }
+    settingsModal
   );
   app.replaceChildren(startScreen);
 }
@@ -32,9 +30,7 @@ function showGameScreen(mode) {
     (mode) => {
       showGameScreen(mode);
     },
-    () => {
-      settingsModal.showModal();
-    }
+    settingsModal
   );
   app.replaceChildren(gameScreen);
 }

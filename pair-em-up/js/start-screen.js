@@ -1,4 +1,4 @@
-export function getStartScreen(btnCallback, settingsCallback) {
+export function getStartScreen(btnCallback, settingsModal) {
   const startScreen = document.createElement("div");
   const title = document.createElement("h1");
   const modes = document.createElement("div");
@@ -41,7 +41,7 @@ export function getStartScreen(btnCallback, settingsCallback) {
   settingsBtnIcon.alt = 'Settings icon';
   settingsBtn.append(settingsBtnIcon);
   settingsBtn.addEventListener('click', () => {
-    settingsCallback();
+    settingsModal.open();
   })
 
   // Records button

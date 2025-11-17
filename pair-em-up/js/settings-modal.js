@@ -16,5 +16,9 @@ export function getSettingsModal() {
     if (e.target.contains(modal)) modal.close();
   })
 
-  return modal;
+  return {
+    modal,
+    open: () => modal.showModal(),
+    close: () => modal.close(),
+  }
 }

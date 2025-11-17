@@ -13,6 +13,7 @@ export class Game {
     this.WIDTH = 9;
     this.field = [];
     this.score = 0;
+    this.addRowsUses = 10;
   }
 
   createClassicField(initial = this.INITIAL) {

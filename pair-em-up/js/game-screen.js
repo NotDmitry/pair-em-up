@@ -22,6 +22,9 @@ export function getGameScreen(mode, backBtnCallback) {
   const hints = document.createElement('div');
   hints.classList.add('game-screen__hints');
 
+  const addCells = document.createElement('button');
+  addCells.classList.add('button', 'button_hint');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -42,6 +45,7 @@ export function getGameScreen(mode, backBtnCallback) {
   })
 
   header.append(backBtn, title);
+  hints.append(addCells);
   main.append(hints, score, field);
   gameScreen.append(header, main);
 
@@ -51,6 +55,7 @@ export function getGameScreen(mode, backBtnCallback) {
 
   title.textContent = `${game.mode}`;
   score.textContent = `Score: ${game.score}`;
+  addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
 
   let selectedCell = null;
 
@@ -111,6 +116,11 @@ export function getGameScreen(mode, backBtnCallback) {
       selectedCell = null;
     }
   });
+
+  addCells.addEventListener('click', (e) => {
+    game.appendField();
+    renderField();
+  })
 
   return gameScreen;
 }

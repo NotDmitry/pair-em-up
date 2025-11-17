@@ -320,5 +320,8 @@ summary {
   border: 2px solid black;
   border-radius: 50%;
 }
+.button_add {
+  font-size: 2rem;
+}
 
 /*# sourceMappingURL=style.css.map */

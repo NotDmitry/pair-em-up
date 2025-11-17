@@ -121,7 +121,7 @@ export class Game {
     let [i2, j2] = pair2;
 
     if (this.field[i1][j1] === 5 && this.field[i2][j2] === 5) {
-      return this.POINTS[3];
+      return this.POINTS[2];
     }
 
     if (this.field[i1][j1] + this.field[i2][j2] === 10) {

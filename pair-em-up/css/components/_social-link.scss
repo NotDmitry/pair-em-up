@@ -1,9 +1,8 @@
-$link-size: 2rem;
+$link-size: clamp(1.5rem, 5vw, 2rem);
 
 .social-link {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   font-size: $link-size;
 

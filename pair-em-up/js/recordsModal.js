@@ -64,9 +64,9 @@ export function getRecordsModal() {
           recordRow.append(resultCopy, modeCopy, scoreCopy, movesCopy, timeCopy);
           return recordRow;
         });
-        inner.replaceChildren(row, ...rows);
+        inner.replaceChildren(title, row, ...rows);
       } else {
-        inner.replaceChildren(row);
+        inner.replaceChildren(title, row);
       }
       modal.showModal();
     },

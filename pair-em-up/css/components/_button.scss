@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s ease;
 
   &:hover {
     cursor: pointer;
@@ -17,13 +18,14 @@
   }
 
   &_round {
-    width: 4rem;
-    height: 4rem;
-    border: 2px solid black;
+    flex-shrink: 0;
+    width: clamp(2.8rem, 6vw, 3rem);
+    height: clamp(2.8rem, 6vw, 3rem);
+    border: 1px solid black;
     border-radius: 50%;
   }
 
   &_add {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 6vw, 2rem);
   }
 }

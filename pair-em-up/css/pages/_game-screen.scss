@@ -7,21 +7,23 @@
 
   &__title {
     margin: 0;
-    font-size: 36px;
+    font-size: clamp(24px, 4vw, 36px);
     font-weight: 600;
+    text-align: center;
   }
 
   &__header {
-    padding: 60px 20px;
+    padding: clamp(20px, 5vw, 60px) 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 40px;
+    gap: clamp(10px, 4vw, 40px);
+    flex-wrap: wrap;
     background-color: silver;
   }
 
   &__main {
-    padding: 60px 20px;
+    padding: clamp(20px, 5vw, 60px) 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -29,20 +31,19 @@
 
   &__hints {
     display: flex;
-    justify-content: start;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
   &__score {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: 300;
   }
 
   &__hint {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     font-weight: 300;
   }
 
@@ -51,16 +52,20 @@
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    place-items: center;
+    //place-items: center;
     gap: 4px;
     width: 100%;
     background-color: coral;
+
+    @media (max-width: 480px) {
+      gap: 2px;
+    }
   }
 
   &__cell {
     width: 100%;
     aspect-ratio: 1;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3vw, 1.2rem);
 
     &_active {
       &:hover {

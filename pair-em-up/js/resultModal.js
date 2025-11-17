@@ -9,7 +9,11 @@ export function getResultModal() {
   title.classList.add('modal__title');
   title.textContent = 'Results';
 
-  inner.append(title);
+  const message = document.createElement('p');
+  const score = document.createElement('p');
+  const moves = document.createElement('p');
+
+  inner.append(title, message, score, moves);
   modal.append(inner);
 
   modal.addEventListener('click', (e) => {
@@ -20,5 +24,11 @@ export function getResultModal() {
     modal,
     open: () => modal.showModal(),
     close: () => modal.close(),
+    setMessages: (titleText, messageText, scoreText, movesText) => {
+      title.textContent = `You ${titleText}!`;
+      message.textContent = messageText;
+      score.textContent = `Total Score: ${scoreText}`;
+      moves.textContent = `Total Moves: ${movesText}`;
+    }
   }
 }

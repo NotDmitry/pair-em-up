@@ -15,7 +15,7 @@ export class Game {
     this.backup = {};
     this.score = 0;
     this.moves = 0;
-    this.addRowsUses = 10;
+    this.addRowsUses = 1;
     this.shuffleUses = 5;
     this.eraserUses = 5;
   }
@@ -187,6 +187,27 @@ export class Game {
     this.shuffleUses = this.backup.shuffleUses;
     this.eraserUses = this.backup.eraserUses;
     this.moves = this.backup.moves;
+  }
+
+  getGameEndResult() {
+    if (this.score >= 100) {
+      return 'Win';
+    }
+
+    if (this.field.length > 50) {
+      return 'Lose';
+    }
+
+    if (
+      this.getValidMovesCount() === 0 &&
+      this.addRowsUses === 0 &&
+      this.shuffleUses === 0 &&
+      this.eraserUses === 0
+    ) {
+      return 'Lose';
+    }
+
+    return null;
   }
 
   getValidMovesCount() {

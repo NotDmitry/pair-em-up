@@ -126,6 +126,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
         game.deleteValueByIndices(secondIndices);
         renderCaptions();
         renderField();
+        checkWinCondition();
         return;
       }
 
@@ -155,6 +156,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.moves += 1;
       renderCaptions();
       renderField();
+      checkWinCondition();
     }
   });
 
@@ -167,6 +169,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.moves += 1;
       renderCaptions();
       renderField();
+      checkWinCondition();
     }
   })
 
@@ -180,6 +183,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.moves += 1;
       renderCaptions();
       renderField();
+      checkWinCondition();
     }
   })
 
@@ -226,5 +230,18 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     });
 
     field.replaceChildren(...fieldButtons.flat());
+  }
+
+  function checkWinCondition() {
+    const result = game.getGameEndResult();
+    if (result) {
+      resultModal.setMessages(
+        result,
+        'Nice attempt!',
+        game.score,
+        game.moves
+      );
+      resultModal.open();
+    }
   }
 }

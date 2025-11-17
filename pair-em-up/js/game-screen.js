@@ -48,6 +48,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const moves = document.createElement('p');
   moves.classList.add('game-screen__score');
 
+  const timer = document.createElement('p');
+  timer.classList.add('game-screen__score');
+  timer.textContent = 'Time: 00:00';
+
   const field = document.createElement('div');
   field.classList.add('game-screen__field');
 
@@ -91,7 +95,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   header.append(backBtn, saveBtn, loadSaveBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
-  main.append(hints, score, moves, field);
+  main.append(hints, timer, score, moves, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View
@@ -102,6 +106,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const game = new Game(mode);
   let selectedCell = null;
   let lock = false;
+  let timerID = null;
+  let timerSeconds = 0;
   revert.disabled = true;
 
   if (isLoaded) {
@@ -111,6 +117,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     renderCaptions();
     renderField();
   }
+
+  timerID = setInterval(() => {
+    timerSeconds += 1;
+    timer.textContent = `Time: ${getFormattedTime(timerSeconds)}`;
+  }, 1000);
 
   field.addEventListener('click', async (e) => {
     const cellBtn = e.target;
@@ -268,11 +279,13 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   function checkWinCondition() {
     const result = game.getGameEndResult();
     if (result) {
+      clearInterval(timerID);
       resultModal.setMessages(
         result,
         'Nice attempt!',
         game.score,
-        game.moves
+        game.moves,
+        getFormattedTime(timerSeconds)
       );
       resultModal.open();
     }
@@ -287,7 +300,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       backup: revert.disabled ? {} : game.backup,
       addRowsUses: game.addRowsUses,
       shuffleUses: game.shuffleUses,
-      eraserUses: game.eraserUses
+      eraserUses: game.eraserUses,
+      timerSeconds
     }
     localStorage.setItem('savedGame', JSON.stringify(saveData));
   }
@@ -306,9 +320,18 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.shuffleUses = savedGame.shuffleUses;
       game.eraserUses = savedGame.eraserUses;
 
+      timerSeconds = savedGame.timerSeconds;
+      timer.textContent = `Time: ${getFormattedTime(timerSeconds)}`;
+
       revert.disabled = !Boolean(game.backup.field);
       renderCaptions();
       renderField();
     }
+  }
+
+  function getFormattedTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
   }
 }

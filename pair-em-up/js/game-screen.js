@@ -25,6 +25,9 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   const addCells = document.createElement('button');
   addCells.classList.add('button', 'button_hint');
 
+  const shuffleCells = document.createElement('button');
+  shuffleCells.classList.add('button', 'button_hint');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -52,7 +55,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   restartBtn.append(restartBtnIcon);
 
   header.append(backBtn, title, restartBtn);
-  hints.append(addCells);
+  hints.append(addCells, shuffleCells);
   main.append(hints, score, field);
   gameScreen.append(header, main);
 
@@ -63,6 +66,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   title.textContent = `${game.mode}`;
   score.textContent = `Score: ${game.score}`;
   addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
+  shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
 
   let selectedCell = null;
 
@@ -132,6 +136,15 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
       renderField();
     }
   });
+
+  shuffleCells.addEventListener('click', () => {
+    if (game.shuffleUses > 0) {
+      game.shuffleField();
+      game.shuffleUses -= 1;
+      shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
+      renderField();
+    }
+  })
 
   restartBtn.addEventListener('click', () => {
     restartCallback(mode);

@@ -14,6 +14,7 @@ export class Game {
     this.field = [];
     this.score = 0;
     this.addRowsUses = 10;
+    this.shuffleUses = 5;
   }
 
   createClassicField(initial = this.INITIAL) {

@@ -279,6 +279,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       field: game.field,
       score: game.score,
       mode: game.mode,
+      moves: game.moves,
       backup: revert.disabled ? {} : game.backup,
       addRowsUses: game.addRowsUses,
       shuffleUses: game.shuffleUses,
@@ -295,6 +296,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.field = savedGame.field;
       game.score = savedGame.score;
       game.mode = savedGame.mode;
+      game.moves = savedGame.moves;
       game.backup = savedGame.backup;
       game.addRowsUses = savedGame.addRowsUses;
       game.shuffleUses = savedGame.shuffleUses;

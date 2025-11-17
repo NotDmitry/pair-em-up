@@ -41,6 +41,8 @@ export function getRecordsModal() {
     open: () => {
       if (localStorage.getItem('records')) {
         const records = JSON.parse(localStorage.getItem('records'));
+        records.sort((a, b) => a.time - b.time);
+
         const rows = records.map((record) => {
           const recordRow = row.cloneNode(false);
 

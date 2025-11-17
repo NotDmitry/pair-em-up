@@ -282,10 +282,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       clearInterval(timerID);
       saveBtn.disabled = true;
       loadSaveBtn.disabled = true;
-      field.disabled = true;
+      field.style.display = 'none';
       addCells.disabled = true;
       shuffleCells.disabled = true;
       eraseCell.disabled = true;
+      revert.disabled = true;
 
       resultModal.setMessages(
         result,
@@ -306,10 +307,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       }
       if (records) {
         records = JSON.parse(records);
-        if (records.length < 5) {
-          records.push(newRecord);
-          records.sort((a, b) => a.time - b.time);
+        if (records.length === 5) {
+          records = records.slice(1);
         }
+        records.push(newRecord);
       } else {
         records = [];
         records.push(newRecord);
@@ -319,6 +320,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   }
 
   function saveGame() {
+    const result = game.getGameEndResult();
+    if (result) return;
+
     const saveData = {
       field: game.field,
       score: game.score,
@@ -349,12 +353,6 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
       timerSeconds = savedGame.timerSeconds;
       timer.textContent = `Time: ${Utils.getFormattedTime(timerSeconds)}`;
-
-      saveBtn.disabled = false;
-      field.disabled = false;
-      addCells.disabled = false;
-      shuffleCells.disabled = false;
-      eraseCell.disabled = false;
 
       revert.disabled = !Boolean(game.backup.field);
       renderCaptions();

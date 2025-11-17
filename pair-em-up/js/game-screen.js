@@ -1,7 +1,7 @@
 import {Game} from './Game.js';
 import {Utils} from './Utils.js';
 
-export function getGameScreen(mode, returnCallback, restartCallback, settingsModal, resultModal) {
+export function getGameScreen(mode, returnCallback, restartCallback, settingsModal, resultModal, isLoaded) {
   const gameScreen = document.createElement('div');
   gameScreen.classList.add('game-screen');
 
@@ -104,9 +104,13 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   let lock = false;
   revert.disabled = true;
 
-  game.createField();
-  renderCaptions();
-  renderField();
+  if (isLoaded) {
+    loadGame();
+  } else {
+    game.createField();
+    renderCaptions();
+    renderField();
+  }
 
   field.addEventListener('click', async (e) => {
     const cellBtn = e.target;

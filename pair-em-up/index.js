@@ -20,12 +20,17 @@ function showStartScreen() {
     (mode) => {
       showGameScreen(mode);
     },
-    settingsModal
+    settingsModal,
+    () => {
+      const savedGame = JSON.parse(localStorage.getItem('savedGame'));
+      if (!savedGame) return;
+      showGameScreen(savedGame.mode, true);
+    }
   );
   app.replaceChildren(startScreen);
 }
 
-function showGameScreen(mode) {
+function showGameScreen(mode, isLoaded = false) {
   const gameScreen = getGameScreen(
     mode,
     () => {
@@ -35,7 +40,8 @@ function showGameScreen(mode) {
       showGameScreen(mode);
     },
     settingsModal,
-    resultModal
+    resultModal,
+    isLoaded
   );
   app.replaceChildren(gameScreen);
 }

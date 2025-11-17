@@ -15,7 +15,7 @@ export class Game {
     this.backup = {};
     this.score = 0;
     this.moves = 0;
-    this.addRowsUses = 1;
+    this.addRowsUses = 10;
     this.shuffleUses = 5;
     this.eraserUses = 5;
   }

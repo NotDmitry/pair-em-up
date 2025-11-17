@@ -1,8 +1,8 @@
-export function getStartScreen(btnCallback, settingsModal) {
+export function getStartScreen(btnCallback, settingsModal, continueCallback) {
   const startScreen = document.createElement("div");
   const title = document.createElement("h1");
   const modes = document.createElement("div");
-  const disabledBtn = document.createElement("button");
+  const continueBtn = document.createElement("button");
   const modeBtn = document.createElement("button");
   const controls = document.createElement("div");
   const roundBtn = document.createElement("button");
@@ -20,9 +20,17 @@ export function getStartScreen(btnCallback, settingsModal) {
 
   // Create button section
   modes.classList.add('start-screen__modes');
-  disabledBtn.classList.add('start-screen__button', 'start-screen__button_disabled');
-  disabledBtn.append(document.createTextNode('Continue'));
-  disabledBtn.disabled = true;
+
+  continueBtn.classList.add('start-screen__button');
+  continueBtn.append(document.createTextNode('Continue'));
+  if (!localStorage.getItem('savedGame')) {
+    continueBtn.classList.add('start-screen__button_disabled');
+    continueBtn.disabled = true;
+  }
+  continueBtn.addEventListener("click", () => {
+    continueCallback();
+  });
+
   modeBtn.classList.add('start-screen__button');
   const modeButtons = ['Classic', 'Random', 'Chaotic'].map((mode) => {
     const btnCopy = modeBtn.cloneNode(true);
@@ -32,7 +40,7 @@ export function getStartScreen(btnCallback, settingsModal) {
     })
     return btnCopy;
   })
-  modes.append(disabledBtn, ...modeButtons);
+  modes.append(continueBtn, ...modeButtons);
 
   // Settings button
   const settingsBtn = roundBtn.cloneNode(true);

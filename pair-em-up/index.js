@@ -1,6 +1,7 @@
 import {getStartScreen} from "./js/start-screen.js";
 import {getGameScreen} from "./js/game-screen.js";
 import {getSettingsModal} from "./js/settings-modal.js";
+import {getResultModal} from "./js/resultModal.js";
 
 const app = document.createElement('div');
 app.id = 'app';
@@ -8,6 +9,9 @@ document.body.append(app);
 
 const settingsModal = getSettingsModal();
 document.body.append(settingsModal.modal);
+
+const resultModal = getResultModal();
+document.body.append(resultModal.modal);
 
 showStartScreen();
 
@@ -30,7 +34,8 @@ function showGameScreen(mode) {
     (mode) => {
       showGameScreen(mode);
     },
-    settingsModal
+    settingsModal,
+    resultModal
   );
   app.replaceChildren(gameScreen);
 }

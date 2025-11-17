@@ -1,7 +1,7 @@
 import {Game} from './Game.js';
 import {Utils} from './Utils.js';
 
-export function getGameScreen(mode, returnCallback, restartCallback, settingsModal) {
+export function getGameScreen(mode, returnCallback, restartCallback, settingsModal, resultModal) {
   const gameScreen = document.createElement('div');
   gameScreen.classList.add('game-screen');
 

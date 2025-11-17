@@ -2,6 +2,7 @@ import {getStartScreen} from "./js/start-screen.js";
 import {getGameScreen} from "./js/game-screen.js";
 import {getSettingsModal} from "./js/settings-modal.js";
 import {getResultModal} from "./js/resultModal.js";
+import {getRecordsModal} from "./js/recordsModal.js";
 
 const app = document.createElement('div');
 app.id = 'app';
@@ -12,6 +13,9 @@ document.body.append(settingsModal.modal);
 
 const resultModal = getResultModal();
 document.body.append(resultModal.modal);
+
+const recordsModal = getRecordsModal();
+document.body.append(recordsModal.modal);
 
 showStartScreen();
 
@@ -25,7 +29,8 @@ function showStartScreen() {
       const savedGame = JSON.parse(localStorage.getItem('savedGame'));
       if (!savedGame) return;
       showGameScreen(savedGame.mode, true);
-    }
+    },
+    recordsModal
   );
   app.replaceChildren(startScreen);
 }

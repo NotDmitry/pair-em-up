@@ -1,4 +1,4 @@
-export function getStartScreen(btnCallback, settingsModal, continueCallback) {
+export function getStartScreen(btnCallback, settingsModal, continueCallback, recordsModal) {
   const startScreen = document.createElement("div");
   const title = document.createElement("h1");
   const modes = document.createElement("div");
@@ -58,6 +58,9 @@ export function getStartScreen(btnCallback, settingsModal, continueCallback) {
   recordBtnIcon.src = './assets/svg/trophy.svg';
   recordBtnIcon.alt = 'Trophy icon';
   recordBtn.append(recordBtnIcon);
+  recordBtn.addEventListener('click', () => {
+    recordsModal.open();
+  })
 
   // GitHub link
   link.classList.add('social-link');

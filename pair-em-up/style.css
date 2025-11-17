@@ -251,7 +251,7 @@ summary {
   aspect-ratio: 1;
   font-size: 1.2rem;
 }
-.game-screen__cell:hover {
+.game-screen__cell_active:hover {
   background-color: yellow;
 }
 .game-screen__cell_selected {
@@ -259,6 +259,12 @@ summary {
 }
 .game-screen__cell_selected:hover {
   background-color: #efeeb2;
+}
+.game-screen__cell_invalid {
+  background-color: maroon;
+}
+.game-screen__cell_invalid:hover {
+  background-color: maroon;
 }
 
 .social-link {

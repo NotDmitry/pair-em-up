@@ -1,4 +1,5 @@
 import {Game} from './Game.js';
+import {Utils} from './Utils.js';
 
 export function getGameScreen(mode, returnCallback, restartCallback) {
   const gameScreen = document.createElement('div');
@@ -37,9 +38,6 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   const field = document.createElement('div');
   field.classList.add('game-screen__field');
 
-  const cell = document.createElement('button');
-  cell.classList.add('game-screen__cell');
-
   // Return button
   const backBtn = roundBtn.cloneNode(true);
   const backBtnIcon = roundBtnIcon.cloneNode(true);
@@ -73,9 +71,14 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
 
   let selectedCell = null;
+  let lock = false;
 
   function renderField() {
     selectedCell = null;
+    lock = false;
+
+    const cell = document.createElement('button');
+    cell.classList.add('game-screen__cell', 'game-screen__cell_active');
     const fieldButtons = game.field.map((row, i) => {
       return row.map((value, j) => {
         const fieldBtn = cell.cloneNode(true);
@@ -97,9 +100,11 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
 
   renderField();
 
-  field.addEventListener('click', (e) => {
+  field.addEventListener('click', async (e) => {
     const cellBtn = e.target;
-    if (!e.target.classList.contains('game-screen__cell')) return;
+    if (!e.target.classList.contains('game-screen__cell_active')) return;
+
+    if (lock) return;
 
     if (selectedCell === null) {
       selectedCell = cellBtn;
@@ -113,6 +118,8 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
       return;
     }
 
+    lock = true;
+
     const firstIndices = [Number(selectedCell.dataset.i), Number(selectedCell.dataset.j)];
     const secondIndices = [Number(cellBtn.dataset.i), Number(cellBtn.dataset.j)];
 
@@ -124,12 +131,24 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
         renderField();
-        return
+        return;
       }
+
+      selectedCell.classList.add('game-screen__cell_invalid');
+      cellBtn.classList.add('game-screen__cell_invalid');
+      selectedCell.disabled = true;
+      cellBtn.disabled = true;
+      await Utils.sleep(1000);
+      selectedCell.disabled = false;
+      cellBtn.disabled = false;
+      selectedCell.classList.remove('game-screen__cell_invalid');
+      cellBtn.classList.remove('game-screen__cell_invalid');
 
       selectedCell.classList.remove('game-screen__cell_selected');
       selectedCell = null;
     }
+
+    lock = false;
   });
 
   addCells.addEventListener('click', () => {

@@ -228,7 +228,11 @@ summary {
   flex-direction: column;
   gap: 10px;
 }
+.game-screen__hints {
+  display: flex;
+}
 .game-screen__score {
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 300;
 }

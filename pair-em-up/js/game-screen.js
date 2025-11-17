@@ -19,6 +19,9 @@ export function getGameScreen(mode, backBtnCallback) {
   const main = document.createElement('main');
   main.classList.add('game-screen__main');
 
+  const hints = document.createElement('div');
+  hints.classList.add('game-screen__hints');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -39,7 +42,7 @@ export function getGameScreen(mode, backBtnCallback) {
   })
 
   header.append(backBtn, title);
-  main.append(score, field);
+  main.append(hints, score, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View

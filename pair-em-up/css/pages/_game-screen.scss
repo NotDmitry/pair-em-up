@@ -27,7 +27,12 @@
     gap: 10px;
   }
 
+  &__hints {
+    display: flex;
+  }
+
   &__score {
+    margin: 0;
     font-size: 1.5rem;
     font-weight: 300;
   }

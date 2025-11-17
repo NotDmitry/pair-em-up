@@ -58,6 +58,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   backBtnIcon.alt = 'Return icon';
   backBtn.append(backBtnIcon);
   backBtn.addEventListener('click', () => {
+    saveGame();
     returnCallback();
   })
 
@@ -216,6 +217,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   loadSaveBtn.addEventListener('click', () => {
     loadGame();
+  })
+
+  window.addEventListener('beforeunload', () => {
+    saveGame();
   })
 
   return gameScreen;

@@ -53,7 +53,7 @@ export class Game {
   appendRandomField() {
     const elements = this.getRemainingValues();
     const shuffledElements = Utils.fisherYatesShuffle(elements);
-    this.field = Utils.adjustBoundedMatrix(this.field, elements, this.WIDTH);
+    this.field = Utils.adjustBoundedMatrix(this.field, shuffledElements, this.WIDTH);
   }
 
   appendChaoticField() {

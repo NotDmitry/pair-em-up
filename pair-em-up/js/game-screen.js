@@ -67,7 +67,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
   game.createField();
 
   title.textContent = `${game.mode}`;
-  score.textContent = `Score: ${game.score}`;
+  score.textContent = `Score: ${game.score} / Target: 100`;
   addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
   shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
   eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
@@ -120,7 +120,7 @@ export function getGameScreen(mode, returnCallback, restartCallback) {
       const points = game.getPoints(firstIndices, secondIndices);
       if (points !== 0) {
         game.score += points;
-        score.textContent = `Score: ${game.score}`;
+        score.textContent = `Score: ${game.score} / Target: 100`;
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
         renderField();

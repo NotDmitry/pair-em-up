@@ -15,8 +15,14 @@ function showStartScreen() {
 }
 
 function showGameScreen(mode) {
-  const gameScreen = getGameScreen(mode, () => {
-    showStartScreen();
-  });
+  const gameScreen = getGameScreen(
+    mode,
+    () => {
+      showStartScreen();
+    },
+    (mode) => {
+      showGameScreen(mode);
+    }
+  );
   app.replaceChildren(gameScreen);
 }

@@ -1,6 +1,6 @@
 import {Game} from './Game.js';
 
-export function getGameScreen(mode, backBtnCallback) {
+export function getGameScreen(mode, returnCallback, restartCallback) {
   const gameScreen = document.createElement('div');
   gameScreen.classList.add('game-screen');
 
@@ -41,10 +41,17 @@ export function getGameScreen(mode, backBtnCallback) {
   backBtnIcon.alt = 'Return icon';
   backBtn.append(backBtnIcon);
   backBtn.addEventListener('click', () => {
-    backBtnCallback();
+    returnCallback();
   })
 
-  header.append(backBtn, title);
+  // Restart button
+  const restartBtn = roundBtn.cloneNode(true);
+  const restartBtnIcon = roundBtnIcon.cloneNode(true);
+  restartBtnIcon.src = './assets/svg/restart.svg';
+  restartBtnIcon.alt = 'Restart icon';
+  restartBtn.append(restartBtnIcon);
+
+  header.append(backBtn, title, restartBtn);
   hints.append(addCells);
   main.append(hints, score, field);
   gameScreen.append(header, main);
@@ -124,7 +131,11 @@ export function getGameScreen(mode, backBtnCallback) {
       addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
       renderField();
     }
-  })
+  });
+
+  restartBtn.addEventListener('click', () => {
+    restartCallback(mode);
+  });
 
   return gameScreen;
 }

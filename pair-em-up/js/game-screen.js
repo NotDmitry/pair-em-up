@@ -60,6 +60,7 @@ export function getGameScreen(mode, backBtnCallback) {
   let selectedCell = null;
 
   function renderField() {
+    selectedCell = null;
     const fieldButtons = game.field.map((row, i) => {
       return row.map((value, j) => {
         const fieldBtn = cell.cloneNode(true);
@@ -107,7 +108,6 @@ export function getGameScreen(mode, backBtnCallback) {
         score.textContent = `Score: ${game.score}`;
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
-        selectedCell = null;
         renderField();
         return
       }

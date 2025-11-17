@@ -290,7 +290,8 @@ summary {
 
 .modal {
   padding: 0;
-  max-width: 240px;
+  min-width: 240px;
+  max-width: 380px;
   width: calc(100% - 40px);
   border: none;
 }
@@ -310,6 +311,7 @@ summary {
 .modal__row {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   align-items: center;
   border-bottom: 1px solid rgba(34, 34, 34, 0.6);
 }

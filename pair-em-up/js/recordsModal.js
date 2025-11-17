@@ -1,3 +1,5 @@
+import {Utils} from "./Utils.js";
+
 export function getRecordsModal() {
   const modal = document.createElement('dialog');
   modal.classList.add('modal');
@@ -6,14 +8,14 @@ export function getRecordsModal() {
   inner.classList.add('modal__inner');
 
   const row = document.createElement('div');
-  inner.classList.add('modal__row');
+  row.classList.add('modal__row');
 
   const title = document.createElement('h3');
   title.classList.add('modal__title');
   title.textContent = 'Records';
 
   const result = document.createElement('p');
-  result.textContent = 'Win / Lose';
+  result.textContent = 'Result';
 
   const mode = document.createElement('p');
   mode.textContent = 'Mode';
@@ -43,19 +45,19 @@ export function getRecordsModal() {
           const recordRow = row.cloneNode(false);
 
           const resultCopy = result.cloneNode(false);
-          result.textContent = record.result;
+          resultCopy.textContent = record.result;
 
           const modeCopy = mode.cloneNode(false);
-          mode.textContent = record.mode;
+          modeCopy.textContent = record.mode;
 
           const scoreCopy = score.cloneNode(false);
-          score.textContent = record.score;
+          scoreCopy.textContent = record.score;
 
           const movesCopy = moves.cloneNode(false);
-          moves.textContent = record.moves;
+          movesCopy.textContent = record.moves;
 
           const timeCopy = time.cloneNode(false);
-          time.textContent = record.time;
+          timeCopy.textContent = Utils.getFormattedTime(record.time);
 
           recordRow.append(resultCopy, modeCopy, scoreCopy, movesCopy, timeCopy);
           return recordRow;

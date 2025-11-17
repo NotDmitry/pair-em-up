@@ -120,7 +120,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   timerID = setInterval(() => {
     timerSeconds += 1;
-    timer.textContent = `Time: ${getFormattedTime(timerSeconds)}`;
+    timer.textContent = `Time: ${Utils.getFormattedTime(timerSeconds)}`;
   }, 1000);
 
   field.addEventListener('click', async (e) => {
@@ -165,7 +165,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       cellBtn.classList.add('game-screen__cell_invalid');
       selectedCell.disabled = true;
       cellBtn.disabled = true;
-      await Utils.sleep(1000);
+      await Utils.sleep(300);
       selectedCell.disabled = false;
       cellBtn.disabled = false;
       selectedCell.classList.remove('game-screen__cell_invalid');
@@ -280,14 +280,41 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     const result = game.getGameEndResult();
     if (result) {
       clearInterval(timerID);
+      saveBtn.disabled = true;
+      loadSaveBtn.disabled = true;
+      field.disabled = true;
+      addCells.disabled = true;
+      shuffleCells.disabled = true;
+      eraseCell.disabled = true;
+
       resultModal.setMessages(
         result,
         'Nice attempt!',
         game.score,
         game.moves,
-        getFormattedTime(timerSeconds)
+        Utils.getFormattedTime(timerSeconds)
       );
       resultModal.open();
+
+      let records = localStorage.getItem('records');
+      const newRecord = {
+        result,
+        mode: game.mode,
+        score: game.score,
+        moves: game.moves,
+        time: timerSeconds,
+      }
+      if (records) {
+        records = JSON.parse(records);
+        if (records.length < 5) {
+          records.push(newRecord);
+          records.sort((a, b) => a.time - b.time);
+        }
+      } else {
+        records = [];
+        records.push(newRecord);
+      }
+      localStorage.setItem('records', JSON.stringify(records));
     }
   }
 
@@ -321,17 +348,17 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       game.eraserUses = savedGame.eraserUses;
 
       timerSeconds = savedGame.timerSeconds;
-      timer.textContent = `Time: ${getFormattedTime(timerSeconds)}`;
+      timer.textContent = `Time: ${Utils.getFormattedTime(timerSeconds)}`;
+
+      saveBtn.disabled = false;
+      field.disabled = false;
+      addCells.disabled = false;
+      shuffleCells.disabled = false;
+      eraseCell.disabled = false;
 
       revert.disabled = !Boolean(game.backup.field);
       renderCaptions();
       renderField();
     }
-  }
-
-  function getFormattedTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
   }
 }

@@ -14,6 +14,7 @@ export class Game {
     this.field = [];
     this.backup = {};
     this.score = 0;
+    this.moves = 0;
     this.addRowsUses = 10;
     this.shuffleUses = 5;
     this.eraserUses = 5;
@@ -175,6 +176,7 @@ export class Game {
       addRowsUses: this.addRowsUses,
       shuffleUses: this.shuffleUses,
       eraserUses: this.eraserUses,
+      moves: this.moves,
     }
   }
 
@@ -184,6 +186,7 @@ export class Game {
     this.addRowsUses = this.backup.addRowsUses;
     this.shuffleUses = this.backup.shuffleUses;
     this.eraserUses = this.backup.eraserUses;
+    this.moves = this.backup.moves;
   }
 
   getValidMovesCount() {

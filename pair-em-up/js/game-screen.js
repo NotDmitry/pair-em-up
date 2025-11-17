@@ -41,6 +41,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
+  const moves = document.createElement('p');
+  moves.classList.add('game-screen__score');
+
   const field = document.createElement('div');
   field.classList.add('game-screen__field');
 
@@ -75,9 +78,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   })
 
   header.append(backBtn, title, settingsBtn, restartBtn);
-  hints.append(addCells, shuffleCells, eraseCell, revert);
-  main.append(hints, score, field);
   hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
+  main.append(hints, score, moves, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View
@@ -118,12 +120,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       if (points !== 0) {
         game.createBackup();
         revert.disabled = false;
+        game.moves += 1;
         game.score += points;
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
         renderCaptions();
-        game.deleteValueByIndices(firstIndices);
-        game.deleteValueByIndices(secondIndices);
         renderField();
         return;
       }
@@ -151,6 +152,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       revert.disabled = false;
       game.appendField();
       game.addRowsUses -= 1;
+      game.moves += 1;
       renderCaptions();
       renderField();
     }
@@ -162,6 +164,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       revert.disabled = false;
       game.shuffleField();
       game.shuffleUses -= 1;
+      game.moves += 1;
       renderCaptions();
       renderField();
     }
@@ -174,6 +177,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       const [i, j] = [Number(selectedCell.dataset.i), Number(selectedCell.dataset.j)];
       game.deleteValueByIndices([i, j]);
       game.eraserUses -= 1;
+      game.moves += 1;
       renderCaptions();
       renderField();
     }
@@ -191,6 +195,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   function renderCaptions() {
     title.textContent = `${game.mode}`;
     score.textContent = `Score: ${game.score} / Target: 100`;
+    moves.textContent = `Moves: ${game.moves}`;
     addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
     shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
     eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;

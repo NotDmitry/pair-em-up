@@ -185,4 +185,27 @@ export class Game {
     this.shuffleUses = this.backup.shuffleUses;
     this.eraserUses = this.backup.eraserUses;
   }
+
+  getValidMovesCount() {
+    const cellIndices = [];
+    let count = 0;
+
+    for (let i = 0; i < this.field.length; i++) {
+      for (let j = 0; j < this.field[i].length; j++) {
+        if (this.field[i][j] !== null) cellIndices.push([i, j]);
+      }
+    }
+
+    for (let i = 0; i < cellIndices.length; i++) {
+      for (let j = i + 1; j < cellIndices.length; j++) {
+        if (this.isValidCellPair(cellIndices[i], cellIndices[j])) {
+          if (this.getPoints(cellIndices[i], cellIndices[j]) !== 0) {
+            count++;
+          }
+        }
+      }
+    }
+
+    return count;
+  }
 }

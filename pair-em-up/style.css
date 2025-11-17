@@ -230,10 +230,18 @@ summary {
 }
 .game-screen__hints {
   display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
 }
 .game-screen__score {
   margin: 0;
   font-size: 1.5rem;
+  font-weight: 300;
+}
+.game-screen__hint {
+  margin: 0;
+  font-size: 1.2rem;
   font-weight: 300;
 }
 .game-screen__field {

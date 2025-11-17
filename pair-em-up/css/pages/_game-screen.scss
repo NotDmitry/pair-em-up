@@ -29,11 +29,20 @@
 
   &__hints {
     display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
   }
 
   &__score {
     margin: 0;
     font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: 1.2rem;
     font-weight: 300;
   }
 

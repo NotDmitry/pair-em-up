@@ -35,6 +35,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const revert = document.createElement('button');
   revert.classList.add('button', 'button_hint');
 
+  const hintMoves = document.createElement('p');
+  hintMoves.classList.add('game-screen__hint');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -74,6 +77,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   header.append(backBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell, revert);
   main.append(hints, score, field);
+  hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
   gameScreen.append(header, main);
 
   // Game logic Controller and View
@@ -115,6 +119,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
         game.createBackup();
         revert.disabled = false;
         game.score += points;
+        game.deleteValueByIndices(firstIndices);
+        game.deleteValueByIndices(secondIndices);
         renderCaptions();
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
@@ -189,6 +195,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
     eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
     revert.textContent = `Revert last move`;
+    hintMoves.textContent = `Available moves: ${game.getValidMovesCount()}`;
   }
 
   function renderField() {

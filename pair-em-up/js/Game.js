@@ -12,6 +12,7 @@ export class Game {
     this.START_BOUND = 27;
     this.WIDTH = 9;
     this.field = [];
+    this.backup = {};
     this.score = 0;
     this.addRowsUses = 10;
     this.shuffleUses = 5;
@@ -167,4 +168,21 @@ export class Game {
     return isOverflowPath() || isVerticalPath();
   }
 
+  createBackup() {
+    this.backup = {
+      field: this.field.map((row) => [...row]),
+      score: this.score,
+      addRowsUses: this.addRowsUses,
+      shuffleUses: this.shuffleUses,
+      eraserUses: this.eraserUses,
+    }
+  }
+
+  restoreBackup() {
+    this.field = this.backup.field.map((row) => [...row]);
+    this.score = this.backup.score;
+    this.addRowsUses = this.backup.addRowsUses;
+    this.shuffleUses = this.backup.shuffleUses;
+    this.eraserUses = this.backup.eraserUses;
+  }
 }

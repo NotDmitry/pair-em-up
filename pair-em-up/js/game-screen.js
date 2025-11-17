@@ -32,6 +32,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const eraseCell = document.createElement('button');
   eraseCell.classList.add('button', 'button_hint');
 
+  const revert = document.createElement('button');
+  revert.classList.add('button', 'button_hint');
+
   const score = document.createElement('p');
   score.classList.add('game-screen__score');
 
@@ -54,6 +57,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   restartBtnIcon.src = './assets/svg/restart.svg';
   restartBtnIcon.alt = 'Restart icon';
   restartBtn.append(restartBtnIcon);
+  restartBtn.addEventListener('click', () => {
+    restartCallback(mode);
+  });
 
   // Settings button
   const settingsBtn = roundBtn.cloneNode(true);
@@ -66,48 +72,18 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   })
 
   header.append(backBtn, title, settingsBtn, restartBtn);
-  hints.append(addCells, shuffleCells, eraseCell);
+  hints.append(addCells, shuffleCells, eraseCell, revert);
   main.append(hints, score, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View
   const game = new Game(mode);
-  game.createField();
-
-  title.textContent = `${game.mode}`;
-  score.textContent = `Score: ${game.score} / Target: 100`;
-  addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
-  shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
-  eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
-
   let selectedCell = null;
   let lock = false;
+  revert.disabled = true;
 
-  function renderField() {
-    selectedCell = null;
-    lock = false;
-
-    const cell = document.createElement('button');
-    cell.classList.add('game-screen__cell', 'game-screen__cell_active');
-    const fieldButtons = game.field.map((row, i) => {
-      return row.map((value, j) => {
-        const fieldBtn = cell.cloneNode(true);
-        fieldBtn.dataset.i = String(i);
-        fieldBtn.dataset.j = String(j);
-
-        if (value !== null) {
-          fieldBtn.textContent = `${value}`;
-        } else {
-          fieldBtn.disabled = true;
-        }
-
-        return fieldBtn;
-      });
-    });
-
-    field.replaceChildren(...fieldButtons.flat());
-  }
-
+  game.createField();
+  renderCaptions();
   renderField();
 
   field.addEventListener('click', async (e) => {
@@ -136,8 +112,10 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     if (game.isValidCellPair(firstIndices, secondIndices)) {
       const points = game.getPoints(firstIndices, secondIndices);
       if (points !== 0) {
+        game.createBackup();
+        revert.disabled = false;
         game.score += points;
-        score.textContent = `Score: ${game.score} / Target: 100`;
+        renderCaptions();
         game.deleteValueByIndices(firstIndices);
         game.deleteValueByIndices(secondIndices);
         renderField();
@@ -163,35 +141,78 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   addCells.addEventListener('click', () => {
     if (game.addRowsUses > 0) {
+      game.createBackup();
+      revert.disabled = false;
       game.appendField();
       game.addRowsUses -= 1;
-      addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
+      renderCaptions();
       renderField();
     }
   });
 
   shuffleCells.addEventListener('click', () => {
     if (game.shuffleUses > 0) {
+      game.createBackup();
+      revert.disabled = false;
       game.shuffleField();
       game.shuffleUses -= 1;
-      shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
+      renderCaptions();
       renderField();
     }
   })
 
   eraseCell.addEventListener('click', () => {
     if (game.eraserUses > 0 && selectedCell !== null) {
+      game.createBackup();
+      revert.disabled = false;
       const [i, j] = [Number(selectedCell.dataset.i), Number(selectedCell.dataset.j)];
       game.deleteValueByIndices([i, j]);
       game.eraserUses -= 1;
-      eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
+      renderCaptions();
       renderField();
     }
   })
 
-  restartBtn.addEventListener('click', () => {
-    restartCallback(mode);
-  });
+  revert.addEventListener('click', () => {
+    game.restoreBackup();
+    revert.disabled = true;
+    renderCaptions();
+    renderField();
+  })
 
   return gameScreen;
+
+  function renderCaptions() {
+    title.textContent = `${game.mode}`;
+    score.textContent = `Score: ${game.score} / Target: 100`;
+    addCells.textContent = `Add Rows (uses: ${game.addRowsUses})`;
+    shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
+    eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
+    revert.textContent = `Revert last move`;
+  }
+
+  function renderField() {
+    selectedCell = null;
+    lock = false;
+
+    const cell = document.createElement('button');
+    cell.classList.add('game-screen__cell', 'game-screen__cell_active');
+    const fieldButtons = game.field.map((row, i) => {
+      return row.map((value, j) => {
+        const fieldBtn = cell.cloneNode(true);
+        fieldBtn.dataset.i = String(i);
+        fieldBtn.dataset.j = String(j);
+
+        if (value !== null) {
+          fieldBtn.textContent = `${value}`;
+        } else {
+          fieldBtn.disabled = true;
+        }
+
+        return fieldBtn;
+      });
+    });
+
+    field.replaceChildren(...fieldButtons.flat());
+  }
 }

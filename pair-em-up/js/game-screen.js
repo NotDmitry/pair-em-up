@@ -316,7 +316,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
     const cell = document.createElement('button');
     cell.classList.add('game-screen__cell');
-    const fieldButtons = game.field.map((row, i) => {
+    let gameField = game.field.map((row) => [...row]);
+    if (gameField.length > 50) {
+      gameField = gameField.slice(0, 50);
+    }
+    const fieldButtons = gameField.map((row, i) => {
       return row.map((value, j) => {
         const fieldBtn = cell.cloneNode(true);
         fieldBtn.dataset.i = String(i);
@@ -406,6 +410,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       shuffleCells.disabled = true;
       eraseCell.disabled = true;
       revert.disabled = true;
+      hintMoves.style.display = 'none';
       lock = true;
 
       header.append(resultsBtn);

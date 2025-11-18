@@ -258,7 +258,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     shuffleCells.textContent = `Shuffle (uses: ${game.shuffleUses})`;
     eraseCell.textContent = `Erase cell (uses: ${game.eraserUses})`;
     revert.textContent = `Revert last move`;
-    hintMoves.textContent = `Available moves: ${game.getValidMovesCount()}`;
+    const moveCount = game.getValidMovesCount();
+    hintMoves.textContent = `Available moves: ${moveCount > 5 ? '5+' : moveCount}`;
   }
 
   function renderField() {

@@ -212,18 +212,19 @@ summary {
   align-items: center;
   gap: 20px;
   width: 100%;
-  max-width: 300px;
 }
 .start-screen__controls {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 20px;
+  width: 100%;
 }
 
 .start-screen__button {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  width: 200px;
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  width: 50vw;
+  max-width: 500px;
   height: 45px;
   background-color: lightyellow;
 }

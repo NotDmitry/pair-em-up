@@ -377,11 +377,15 @@ summary {
   cursor: pointer;
   background-color: greenyellow;
 }
+.button:disabled {
+  cursor: default;
+  background-color: darkgrey;
+}
 .button_round {
   flex-shrink: 0;
   width: 48px;
   height: 48px;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 50%;
 }
 .button__icon {

@@ -63,6 +63,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   backBtn.append(backBtnIcon);
   backBtn.addEventListener('click', () => {
     saveGame();
+    clearInterval(timerID);
     returnCallback();
   })
 
@@ -80,6 +81,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   restartBtnIcon.alt = 'Restart icon';
   restartBtn.append(restartBtnIcon);
   restartBtn.addEventListener('click', () => {
+    clearInterval(timerID);
     restartCallback(mode);
   });
 
@@ -256,6 +258,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   window.addEventListener('beforeunload', () => {
     saveGame();
+    clearInterval(timerID);
   })
 
   return gameScreen;

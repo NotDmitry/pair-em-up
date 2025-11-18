@@ -46,6 +46,7 @@ export function getStartScreen(btnCallback, settingsModal, continueCallback, rec
   const settingsBtnIcon = roundBtnIcon.cloneNode(true);
   settingsBtnIcon.src = './assets/svg/settings.svg';
   settingsBtnIcon.alt = 'Settings icon';
+  settingsBtn.title = 'Open settings';
   settingsBtn.append(settingsBtnIcon);
   settingsBtn.addEventListener('click', () => {
     settingsModal.open();
@@ -56,6 +57,7 @@ export function getStartScreen(btnCallback, settingsModal, continueCallback, rec
   const recordBtnIcon = roundBtnIcon.cloneNode(true);
   recordBtnIcon.src = './assets/svg/trophy.svg';
   recordBtnIcon.alt = 'Trophy icon';
+  recordBtn.title = 'Show records';
   recordBtn.append(recordBtnIcon);
   recordBtn.addEventListener('click', () => {
     recordsModal.open();

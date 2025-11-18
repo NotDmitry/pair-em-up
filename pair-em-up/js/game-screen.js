@@ -62,6 +62,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const backBtnIcon = roundBtnIcon.cloneNode(true);
   backBtnIcon.src = './assets/svg/return.svg';
   backBtnIcon.alt = 'Return icon';
+  backBtn.title = 'Return to main menu';
   backBtn.append(backBtnIcon);
   backBtn.addEventListener('click', () => {
     saveGame();
@@ -74,6 +75,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const saveBtnIcon = roundBtnIcon.cloneNode(true);
   saveBtnIcon.src = './assets/svg/save.svg';
   saveBtnIcon.alt = 'Save icon';
+  saveBtn.title = 'Save current game';
   saveBtn.append(saveBtnIcon);
 
   // Load button
@@ -81,6 +83,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const loadSaveBtnIcon = roundBtnIcon.cloneNode(true);
   loadSaveBtnIcon.src = './assets/svg/load.svg';
   loadSaveBtnIcon.alt = 'Load icon';
+  loadSaveBtn.title = 'Load last manually or auto saved game';
   loadSaveBtn.append(loadSaveBtnIcon);
 
   // Restart button
@@ -88,6 +91,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const restartBtnIcon = roundBtnIcon.cloneNode(true);
   restartBtnIcon.src = './assets/svg/restart.svg';
   restartBtnIcon.alt = 'Restart icon';
+  restartBtn.title = 'Restart game in current mode';
   restartBtn.append(restartBtnIcon);
   restartBtn.addEventListener('click', () => {
     clearInterval(timerID);
@@ -99,6 +103,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const resultsBtnIcon = roundBtnIcon.cloneNode(true);
   resultsBtnIcon.src = './assets/svg/award.svg';
   resultsBtnIcon.alt = 'Show results icon';
+  resultsBtn.title = 'Show game results';
   resultsBtn.append(resultsBtnIcon);
   resultsBtn.addEventListener('click', () => {
     resultModal.open();
@@ -109,6 +114,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const settingsBtnIcon = roundBtnIcon.cloneNode(true);
   settingsBtnIcon.src = './assets/svg/settings.svg';
   settingsBtnIcon.alt = 'Settings icon';
+  settingsBtn.title = 'Show settings';
   settingsBtn.append(settingsBtnIcon);
   settingsBtn.addEventListener('click', () => {
     settingsModal.open();

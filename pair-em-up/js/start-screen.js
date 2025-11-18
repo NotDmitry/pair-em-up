@@ -24,7 +24,6 @@ export function getStartScreen(btnCallback, settingsModal, continueCallback, rec
   continueBtn.classList.add('start-screen__button');
   continueBtn.append(document.createTextNode('Continue'));
   if (!localStorage.getItem('savedGame')) {
-    continueBtn.classList.add('start-screen__button_disabled');
     continueBtn.disabled = true;
   }
   continueBtn.addEventListener("click", () => {

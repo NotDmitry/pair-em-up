@@ -26,10 +26,6 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const hintsButtons = document.createElement('div');
   hintsButtons.classList.add('game-screen__hints-buttons');
 
-  const loadSaveBtn = document.createElement('button');
-  loadSaveBtn.classList.add('button', 'button_hint');
-  loadSaveBtn.textContent = 'Continue';
-
   const addCells = document.createElement('button');
   addCells.classList.add('button', 'button_hint');
 
@@ -80,6 +76,13 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   saveBtnIcon.alt = 'Save icon';
   saveBtn.append(saveBtnIcon);
 
+  // Load button
+  const loadSaveBtn = roundBtn.cloneNode(true);
+  const loadSaveBtnIcon = roundBtnIcon.cloneNode(true);
+  loadSaveBtnIcon.src = './assets/svg/load.svg';
+  loadSaveBtnIcon.alt = 'Load icon';
+  loadSaveBtn.append(loadSaveBtnIcon);
+
   // Restart button
   const restartBtn = roundBtn.cloneNode(true);
   const restartBtnIcon = roundBtnIcon.cloneNode(true);
@@ -111,7 +114,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     settingsModal.open();
   })
 
-  header.append(backBtn, saveBtn, loadSaveBtn, title, settingsBtn, restartBtn);
+  header.append(title, backBtn, saveBtn, loadSaveBtn, settingsBtn, restartBtn);
   hintsButtons.append(addCells, shuffleCells, eraseCell, revert);
   hints.append(hintsButtons, hintMoves);
   stats.append(timer, score, moves);

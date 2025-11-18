@@ -7,19 +7,21 @@
 
   &__title {
     margin: 0;
-    font-size: clamp(24px, 4vw, 36px);
+    font-size: clamp(2.5rem, 6vw, 3rem);
     font-weight: 600;
     text-align: center;
+    color: lightyellow;
+    text-shadow: 2px 2px 2px black;
   }
 
   &__header {
-    padding: clamp(20px, 5vw, 60px) 20px;
+    padding: 40px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: clamp(10px, 4vw, 40px);
     flex-wrap: wrap;
-    background-color: silver;
+    background-color: #369c32;
   }
 
   &__main {

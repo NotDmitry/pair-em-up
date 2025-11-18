@@ -225,12 +225,22 @@ summary {
   font-size: clamp(1rem, 4vw, 1.5rem);
   width: 200px;
   height: 45px;
+  background-color: lightyellow;
+}
+.start-screen__button:hover {
+  background-color: greenyellow;
+  cursor: pointer;
 }
 @media (max-width: 480px) {
   .start-screen__button {
     width: 100%;
   }
 }
+.start-screen__button:disabled {
+  background-color: indianred;
+  cursor: default;
+}
+
 .game-screen {
   display: flex;
   flex-direction: column;

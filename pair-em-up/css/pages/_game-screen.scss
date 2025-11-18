@@ -66,11 +66,15 @@
     width: 100%;
     aspect-ratio: 1;
     font-size: clamp(1rem, 3vw, 1.2rem);
+    cursor: pointer;
 
-    &_active {
-      &:hover {
-        background-color: yellow;
-      }
+    &:hover {
+      background-color: yellow;
+    }
+
+    &:disabled {
+      cursor: default;
+      background-color: darkgrey;
     }
 
     &_selected {
@@ -84,7 +88,7 @@
     &_invalid {
       background-color: maroon;
 
-      &:hover {
+      &:disabled {
         background-color: maroon;
       }
     }

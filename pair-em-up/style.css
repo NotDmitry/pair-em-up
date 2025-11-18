@@ -304,9 +304,14 @@ summary {
   width: 100%;
   aspect-ratio: 1;
   font-size: clamp(1rem, 3vw, 1.2rem);
+  cursor: pointer;
 }
-.game-screen__cell_active:hover {
+.game-screen__cell:hover {
   background-color: yellow;
+}
+.game-screen__cell:disabled {
+  cursor: default;
+  background-color: darkgrey;
 }
 .game-screen__cell_selected {
   background-color: yellowgreen;
@@ -317,7 +322,7 @@ summary {
 .game-screen__cell_invalid {
   background-color: maroon;
 }
-.game-screen__cell_invalid:hover {
+.game-screen__cell_invalid:disabled {
   background-color: maroon;
 }
 

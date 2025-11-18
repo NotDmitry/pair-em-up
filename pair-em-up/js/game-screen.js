@@ -135,7 +135,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   field.addEventListener('click', async (e) => {
     const cellBtn = e.target;
-    if (!e.target.classList.contains('game-screen__cell_active')) return;
+    if (!e.target.classList.contains('game-screen__cell')) return;
 
     if (lock) return;
 
@@ -267,7 +267,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     lock = false;
 
     const cell = document.createElement('button');
-    cell.classList.add('game-screen__cell', 'game-screen__cell_active');
+    cell.classList.add('game-screen__cell');
     const fieldButtons = game.field.map((row, i) => {
       return row.map((value, j) => {
         const fieldBtn = cell.cloneNode(true);

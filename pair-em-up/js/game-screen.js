@@ -42,14 +42,17 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const hintMoves = document.createElement('p');
   hintMoves.classList.add('game-screen__hint');
 
+  const stats = document.createElement('div');
+  stats.classList.add('game-screen__stats');
+
   const score = document.createElement('p');
-  score.classList.add('game-screen__score');
+  score.classList.add('game-screen__label');
 
   const moves = document.createElement('p');
-  moves.classList.add('game-screen__score');
+  moves.classList.add('game-screen__label');
 
   const timer = document.createElement('p');
-  timer.classList.add('game-screen__score');
+  timer.classList.add('game-screen__label');
   timer.textContent = 'Time: 00:00';
 
   const field = document.createElement('div');
@@ -107,7 +110,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   header.append(backBtn, saveBtn, loadSaveBtn, title, settingsBtn, restartBtn);
   hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
-  main.append(hints, timer, score, moves, field);
+  stats.append(timer, score, moves);
+  main.append(hints, stats, field);
   gameScreen.append(header, main);
 
   // Game logic Controller and View

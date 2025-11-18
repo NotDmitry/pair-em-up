@@ -23,10 +23,10 @@
   }
 
   &__main {
-    padding: clamp(20px, 5vw, 60px) 20px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
   }
 
   &__hints {
@@ -35,10 +35,17 @@
     gap: 10px;
   }
 
-  &__score {
+  &__stats {
+    display: flex;
+    background-color: #EFEEB2;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__label {
     margin: 0;
     font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   &__hint {

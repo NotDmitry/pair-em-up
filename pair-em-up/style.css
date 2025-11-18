@@ -266,20 +266,26 @@ summary {
   background-color: silver;
 }
 .game-screen__main {
-  padding: clamp(20px, 5vw, 60px) 20px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 .game-screen__hints {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-.game-screen__score {
+.game-screen__stats {
+  display: flex;
+  background-color: #EFEEB2;
+  justify-content: space-between;
+  gap: 10px;
+}
+.game-screen__label {
   margin: 0;
   font-size: clamp(1rem, 3vw, 1.5rem);
-  font-weight: 300;
+  font-weight: 400;
 }
 .game-screen__hint {
   margin: 0;

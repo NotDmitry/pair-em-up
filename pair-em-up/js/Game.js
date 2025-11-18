@@ -13,7 +13,7 @@ export class Game {
     this.WIDTH = 9;
     this.field = [];
     this.backup = {};
-    this.score = 90;
+    this.score = 0;
     this.moves = 0;
     this.addRowsUses = 10;
     this.shuffleUses = 5;

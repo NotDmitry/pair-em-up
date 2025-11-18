@@ -316,6 +316,7 @@ summary {
   aspect-ratio: 1;
   font-size: clamp(1.2rem, 5vw, 1.5rem);
   cursor: pointer;
+  transition: 0.2s ease;
 }
 .game-screen__cell:hover {
   background-color: yellow;

@@ -83,6 +83,16 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     restartCallback(mode);
   });
 
+  // Results button
+  const resultsBtn = roundBtn.cloneNode(true);
+  const resultsBtnIcon = roundBtnIcon.cloneNode(true);
+  resultsBtnIcon.src = './assets/svg/award.svg';
+  resultsBtnIcon.alt = 'Show results icon';
+  resultsBtn.append(resultsBtnIcon);
+  resultsBtn.addEventListener('click', () => {
+    resultModal.open();
+  });
+
   // Settings button
   const settingsBtn = roundBtn.cloneNode(true);
   const settingsBtnIcon = roundBtnIcon.cloneNode(true);
@@ -287,7 +297,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       shuffleCells.disabled = true;
       eraseCell.disabled = true;
       revert.disabled = true;
+      hintMoves.style.display = 'none';
 
+      header.append(resultsBtn);
       resultModal.setMessages(
         result,
         'Nice attempt!',

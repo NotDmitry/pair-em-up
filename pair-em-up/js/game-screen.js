@@ -389,12 +389,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       clearInterval(timerID);
       saveBtn.disabled = true;
       loadSaveBtn.disabled = true;
-      field.style.display = 'none';
       addCells.disabled = true;
       shuffleCells.disabled = true;
       eraseCell.disabled = true;
       revert.disabled = true;
-      hintMoves.style.display = 'none';
+      lock = true;
 
       header.append(resultsBtn);
       resultModal.setMessages(

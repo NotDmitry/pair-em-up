@@ -95,7 +95,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   restartBtn.append(restartBtnIcon);
   restartBtn.addEventListener('click', () => {
     clearInterval(timerID);
-    restartCallback(mode);
+    restartCallback(game.mode);
   });
 
   // Results button

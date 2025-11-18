@@ -353,18 +353,20 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       return 'Moves';
     }
 
+    if (
+      game.addRowsUses !== 0 ||
+      game.shuffleUses !== 0 ||
+      game.eraserUses !== 0
+    ) {
+      if (game.field.flat().every((value) => value === null)) return 'Empty';
+    }
+
     return null;
   }
 
   function checkWinCondition() {
     const result = getGameEndResult();
     if (result) {
-      if (result === 'Win') {
-        playSound(sounds['win']);
-      } else {
-        playSound(sounds['lose']);
-      }
-
       let outcome;
       let message;
 
@@ -372,6 +374,11 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
         case 'Win': {
           outcome = 'Win';
           message = 'Well done!';
+          break;
+        }
+        case 'Empty': {
+          outcome = 'Win';
+          message = `Board is cleared but you can do better`;
           break;
         }
         case 'Rows': {
@@ -384,6 +391,12 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
           message = 'No available moves left';
           break;
         }
+      }
+
+      if (outcome === 'Win') {
+        playSound(sounds['win']);
+      } else {
+        playSound(sounds['lose']);
       }
 
       clearInterval(timerID);

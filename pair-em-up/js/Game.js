@@ -189,27 +189,6 @@ export class Game {
     this.moves = this.backup.moves;
   }
 
-  getGameEndResult() {
-    if (this.score >= 100) {
-      return 'Win';
-    }
-
-    if (this.field.length > 50) {
-      return 'Lose';
-    }
-
-    if (
-      this.getValidMovesCount() === 0 &&
-      this.addRowsUses === 0 &&
-      this.shuffleUses === 0 &&
-      this.eraserUses === 0
-    ) {
-      return 'Lose';
-    }
-
-    return null;
-  }
-
   getValidMovesCount() {
     const cellIndices = [];
     let count = 0;

@@ -335,13 +335,55 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     field.replaceChildren(...fieldButtons.flat());
   }
 
+  function getGameEndResult() {
+    if (game.score >= 100) {
+      return 'Win';
+    }
+
+    if (game.field.length > 50) {
+      return 'Rows';
+    }
+
+    if (
+      game.getValidMovesCount() === 0 &&
+      game.addRowsUses === 0 &&
+      game.shuffleUses === 0 &&
+      game.eraserUses === 0
+    ) {
+      return 'Moves';
+    }
+
+    return null;
+  }
+
   function checkWinCondition() {
-    const result = game.getGameEndResult();
+    const result = getGameEndResult();
     if (result) {
       if (result === 'Win') {
         playSound(sounds['win']);
       } else {
         playSound(sounds['lose']);
+      }
+
+      let outcome;
+      let message;
+
+      switch (result) {
+        case 'Win': {
+          outcome = 'Win';
+          message = 'Well done!';
+          break;
+        }
+        case 'Rows': {
+          outcome = 'Lose';
+          message = `Row limit exceeded: ${game.field.length} / 50`;
+          break;
+        }
+        case 'Moves': {
+          outcome = 'Lose';
+          message = 'No available moves left';
+          break;
+        }
       }
 
       clearInterval(timerID);
@@ -356,8 +398,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
       header.append(resultsBtn);
       resultModal.setMessages(
-        result,
-        'Nice attempt!',
+        outcome,
+        message,
         game.score,
         game.moves,
         Utils.getFormattedTime(timerSeconds)
@@ -366,7 +408,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
       let records = localStorage.getItem('records');
       const newRecord = {
-        result,
+        result: outcome,
         mode: game.mode,
         score: game.score,
         moves: game.moves,
@@ -387,7 +429,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   }
 
   function saveGame() {
-    const result = game.getGameEndResult();
+    const result = getGameEndResult();
     if (result) return;
 
     const saveData = {

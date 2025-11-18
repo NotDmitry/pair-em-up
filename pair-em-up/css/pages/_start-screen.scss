@@ -1,3 +1,5 @@
+@use "../common/mixins" as m;
+
 .start-screen {
   display: flex;
   flex-direction: column;
@@ -40,7 +42,7 @@
   background-color: lightyellow;
   transition: 0.2s ease;
 
-  &:hover {
+  @include m.non-sticking-hover {
     background-color: greenyellow;
     cursor: pointer;
   }

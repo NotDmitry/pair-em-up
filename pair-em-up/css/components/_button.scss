@@ -1,10 +1,12 @@
+@use "../common/mixins" as m;
+
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.2s ease;
 
-  &:hover {
+  @include m.non-sticking-hover {
     cursor: pointer;
     background-color: greenyellow;
   }

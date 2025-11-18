@@ -229,9 +229,11 @@ summary {
   background-color: lightyellow;
   transition: 0.2s ease;
 }
-.start-screen__button:hover {
-  background-color: greenyellow;
-  cursor: pointer;
+@media (hover: hover) and (pointer: fine) {
+  .start-screen__button:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+  }
 }
 @media (max-width: 480px) {
   .start-screen__button {
@@ -265,7 +267,7 @@ summary {
   align-items: center;
   gap: clamp(10px, 4vw, 40px);
   flex-wrap: wrap;
-  background-color: #369c32;
+  background-color: #369C32;
 }
 .game-screen__main {
   padding: 40px 20px;
@@ -318,8 +320,10 @@ summary {
   cursor: pointer;
   transition: 0.2s ease;
 }
-.game-screen__cell:hover {
-  background-color: yellow;
+@media (hover: hover) and (pointer: fine) {
+  .game-screen__cell:hover {
+    background-color: yellow;
+  }
 }
 .game-screen__cell:disabled {
   cursor: default;
@@ -328,8 +332,10 @@ summary {
 .game-screen__cell_selected {
   background-color: yellowgreen;
 }
-.game-screen__cell_selected:hover {
-  background-color: #efeeb2;
+@media (hover: hover) and (pointer: fine) {
+  .game-screen__cell_selected:hover {
+    background-color: #EFEEB2;
+  }
 }
 .game-screen__cell_warn {
   background-color: cornflowerblue;
@@ -396,9 +402,11 @@ summary {
   justify-content: center;
   transition: 0.2s ease;
 }
-.button:hover {
-  cursor: pointer;
-  background-color: greenyellow;
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    cursor: pointer;
+    background-color: greenyellow;
+  }
 }
 .button:disabled {
   cursor: default;

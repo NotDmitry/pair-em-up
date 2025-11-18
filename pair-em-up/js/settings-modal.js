@@ -9,16 +9,49 @@ export function getSettingsModal() {
   title.classList.add('modal__title');
   title.textContent = 'Settings';
 
-  inner.append(title);
+  // Sound button
+  const volumeBtn = document.createElement('button');
+  volumeBtn.classList.add('button', 'button_round');
+  const volumeBtnIcon = document.createElement('img');
+  volumeBtnIcon.classList.add('button__icon');
+  volumeBtn.append(volumeBtnIcon);
+
+  inner.append(title, volumeBtn);
   modal.append(inner);
+  let isMuted = false;
 
   modal.addEventListener('click', (e) => {
     if (e.target.contains(modal)) modal.close();
-  })
+  });
+
+  volumeBtn.addEventListener('click', () => {
+    isMuted ? unmute() : mute();
+    localStorage.setItem('isMuted', JSON.stringify(isMuted));
+  });
+
+  function mute() {
+    volumeBtnIcon.src = './assets/svg/volume-mute.svg';
+    volumeBtnIcon.alt = 'Volume mute icon';
+    volumeBtn.title = 'Unmute';
+    isMuted = true;
+  }
+
+  function unmute() {
+    volumeBtnIcon.src = './assets/svg/volume.svg';
+    volumeBtnIcon.alt = 'Volume icon';
+    volumeBtn.title = 'Mute';
+    isMuted = false;
+  }
 
   return {
     modal,
-    open: () => modal.showModal(),
-    close: () => modal.close(),
+    open: () => {
+      isMuted = JSON.parse(localStorage.getItem('isMuted'));
+      isMuted ? mute() : unmute();
+      modal.showModal();
+    },
+    close: () => {
+      modal.close();
+    },
   }
 }

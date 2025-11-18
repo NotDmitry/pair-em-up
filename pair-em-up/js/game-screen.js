@@ -139,6 +139,16 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   let timerSeconds = 0;
   revert.disabled = true;
 
+  const sounds = {
+    select: new Audio('./assets/audio/select.wav'),
+    success: new Audio('./assets/audio/success.wav'),
+    win: new Audio('./assets/audio/win.wav'),
+    lose: new Audio('./assets/audio/lose.wav'),
+    invalid: new Audio('./assets/audio/invalid.wav'),
+    delete: new Audio('./assets/audio/delete.wav'),
+    shuffle: new Audio('./assets/audio/shuffle.wav')
+  }
+
   if (isLoaded) {
     loadGame();
   } else {
@@ -161,12 +171,14 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     if (selectedCell === null) {
       selectedCell = cellBtn;
       cellBtn.classList.add('game-screen__cell_selected');
+      playSound(sounds['select']);
       return;
     }
 
     if (selectedCell === cellBtn) {
       selectedCell = null;
       cellBtn.classList.remove('game-screen__cell_selected');
+      playSound(sounds['select']);
       return;
     }
 
@@ -178,6 +190,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
     if (game.isValidCellPair(firstIndices, secondIndices)) {
       const points = game.getPoints(firstIndices, secondIndices);
       if (points !== 0) {
+        playSound(sounds['success']);
         game.createBackup();
         revert.disabled = false;
         game.moves += 1;
@@ -194,6 +207,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       cellBtn.classList.add('game-screen__cell_warn');
       selectedCell.disabled = true;
       cellBtn.disabled = true;
+      playSound(sounds['invalid']);
       await Utils.sleep(500);
       selectedCell.disabled = false;
       cellBtn.disabled = false;
@@ -207,6 +221,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       cellBtn.classList.add('game-screen__cell_invalid');
       selectedCell.disabled = true;
       cellBtn.disabled = true;
+      playSound(sounds['invalid']);
       await Utils.sleep(500);
       selectedCell.disabled = false;
       cellBtn.disabled = false;
@@ -219,6 +234,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   addCells.addEventListener('click', () => {
     if (game.addRowsUses > 0) {
+      playSound(sounds['shuffle']);
       game.createBackup();
       revert.disabled = false;
       game.appendField();
@@ -232,6 +248,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   shuffleCells.addEventListener('click', () => {
     if (game.shuffleUses > 0) {
+      playSound(sounds['shuffle']);
       game.createBackup();
       revert.disabled = false;
       game.shuffleField();
@@ -245,6 +262,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   eraseCell.addEventListener('click', () => {
     if (game.eraserUses > 0 && selectedCell !== null) {
+      playSound(sounds['delete']);
       game.createBackup();
       revert.disabled = false;
       const [i, j] = [Number(selectedCell.dataset.i), Number(selectedCell.dataset.j)];
@@ -320,6 +338,12 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   function checkWinCondition() {
     const result = game.getGameEndResult();
     if (result) {
+      if (result === 'Win') {
+        playSound(sounds['win']);
+      } else {
+        playSound(sounds['lose']);
+      }
+
       clearInterval(timerID);
       saveBtn.disabled = true;
       loadSaveBtn.disabled = true;
@@ -400,6 +424,14 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
       revert.disabled = !Boolean(game.backup.field);
       renderCaptions();
       renderField();
+    }
+  }
+
+  function playSound(sound) {
+    const isMuted = JSON.parse(localStorage.getItem('isMuted'));
+    if (!isMuted) {
+      sound.currentTime = 0;
+      sound.play();
     }
   }
 }

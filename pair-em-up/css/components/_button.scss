@@ -9,19 +9,17 @@
     background-color: greenyellow;
   }
 
-  &__icon {
-    display: block;
-    padding: 4px;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
   &_round {
     flex-shrink: 0;
-    width: clamp(2.8rem, 6vw, 3rem);
-    height: clamp(2.8rem, 6vw, 3rem);
+    width: 48px;
+    height: 48px;
     border: 1px solid black;
     border-radius: 50%;
+  }
+
+  &__icon {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
   }
 }

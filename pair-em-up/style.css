@@ -309,15 +309,10 @@ summary {
   width: 100%;
   background-color: coral;
 }
-@media (max-width: 480px) {
-  .game-screen__field {
-    gap: 2px;
-  }
-}
 .game-screen__cell {
   width: 100%;
   aspect-ratio: 1;
-  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
   cursor: pointer;
 }
 .game-screen__cell:hover {

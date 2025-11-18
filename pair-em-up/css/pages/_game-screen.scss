@@ -68,20 +68,15 @@
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    //place-items: center;
     gap: 4px;
     width: 100%;
     background-color: coral;
-
-    @media (max-width: 480px) {
-      gap: 2px;
-    }
   }
 
   &__cell {
     width: 100%;
     aspect-ratio: 1;
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
     cursor: pointer;
 
     &:hover {

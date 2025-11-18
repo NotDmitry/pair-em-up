@@ -23,6 +23,9 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   const hints = document.createElement('div');
   hints.classList.add('game-screen__hints');
 
+  const hintsButtons = document.createElement('div');
+  hintsButtons.classList.add('game-screen__hints-buttons');
+
   const loadSaveBtn = document.createElement('button');
   loadSaveBtn.classList.add('button', 'button_hint');
   loadSaveBtn.textContent = 'Continue';
@@ -109,7 +112,8 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
   })
 
   header.append(backBtn, saveBtn, loadSaveBtn, title, settingsBtn, restartBtn);
-  hints.append(addCells, shuffleCells, eraseCell, revert, hintMoves);
+  hintsButtons.append(addCells, shuffleCells, eraseCell, revert);
+  hints.append(hintsButtons, hintMoves);
   stats.append(timer, score, moves);
   main.append(hints, stats, field);
   gameScreen.append(header, main);

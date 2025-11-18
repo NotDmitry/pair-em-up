@@ -31,6 +31,15 @@
 
   &__hints {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__hints-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -50,8 +59,8 @@
 
   &__hint {
     margin: 0;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    font-weight: 300;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 500;
   }
 
   &__field {

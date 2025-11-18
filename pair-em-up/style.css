@@ -273,6 +273,14 @@ summary {
 }
 .game-screen__hints {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.game-screen__hints-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -289,8 +297,8 @@ summary {
 }
 .game-screen__hint {
   margin: 0;
-  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-  font-weight: 300;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 500;
 }
 .game-screen__field {
   border: 1px solid black;
@@ -404,6 +412,12 @@ summary {
   height: 48px;
   border: 2px solid black;
   border-radius: 50%;
+}
+.button_hint {
+  max-width: 200px;
+  width: 100%;
+  padding: 3px;
+  font-size: clamp(1.2rem, 2.5vw, 1.2rem);
 }
 .button__icon {
   width: 75%;

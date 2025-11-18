@@ -319,6 +319,12 @@ summary {
 .game-screen__cell_selected:hover {
   background-color: #efeeb2;
 }
+.game-screen__cell_warn {
+  background-color: cornflowerblue;
+}
+.game-screen__cell_warn:disabled {
+  background-color: cornflowerblue;
+}
 .game-screen__cell_invalid {
   background-color: maroon;
 }

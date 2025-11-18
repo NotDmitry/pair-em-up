@@ -85,6 +85,14 @@
       }
     }
 
+    &_warn {
+      background-color: cornflowerblue;
+
+      &:disabled {
+        background-color: cornflowerblue;
+      }
+    }
+
     &_invalid {
       background-color: maroon;
 

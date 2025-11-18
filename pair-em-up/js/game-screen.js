@@ -171,18 +171,28 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
         return;
       }
 
+      selectedCell.classList.add('game-screen__cell_warn');
+      cellBtn.classList.add('game-screen__cell_warn');
+      selectedCell.disabled = true;
+      cellBtn.disabled = true;
+      await Utils.sleep(500);
+      selectedCell.disabled = false;
+      cellBtn.disabled = false;
+      selectedCell.classList.remove('game-screen__cell_warn');
+      cellBtn.classList.remove('game-screen__cell_warn');
+
+      selectedCell.classList.remove('game-screen__cell_selected');
+      selectedCell = null;
+    } else {
       selectedCell.classList.add('game-screen__cell_invalid');
       cellBtn.classList.add('game-screen__cell_invalid');
       selectedCell.disabled = true;
       cellBtn.disabled = true;
-      await Utils.sleep(300);
+      await Utils.sleep(500);
       selectedCell.disabled = false;
       cellBtn.disabled = false;
       selectedCell.classList.remove('game-screen__cell_invalid');
       cellBtn.classList.remove('game-screen__cell_invalid');
-
-      selectedCell.classList.remove('game-screen__cell_selected');
-      selectedCell = null;
     }
 
     lock = false;

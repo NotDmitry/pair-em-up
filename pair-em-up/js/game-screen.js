@@ -34,6 +34,7 @@ export function getGameScreen(mode, returnCallback, restartCallback, settingsMod
 
   const eraseCell = document.createElement('button');
   eraseCell.classList.add('button', 'button_hint');
+  eraseCell.title = 'First select the cell on the field, then push this button to delete selected cell';
 
   const revert = document.createElement('button');
   revert.classList.add('button', 'button_hint');

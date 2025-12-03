@@ -1,0 +1,120 @@
+@use "../common/mixins" as m;
+
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+
+  &__title {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 3rem);
+    font-weight: 600;
+    text-align: center;
+    color: lightyellow;
+    text-shadow: 2px 2px 2px black;
+  }
+
+  &__header {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 4vw, 40px);
+    flex-wrap: wrap;
+    background-color: #369C32;
+  }
+
+  &__main {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__hints {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__hints-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__stats {
+    display: flex;
+    background-color: #EFEEB2;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__label {
+    margin: 0;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 400;
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 500;
+  }
+
+  &__field {
+    border: 1px solid black;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 4px;
+    width: 100%;
+    background-color: coral;
+  }
+
+  &__cell {
+    width: 100%;
+    aspect-ratio: 1;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    @include m.non-sticking-hover {
+      background-color: yellow;
+    }
+
+    &:disabled {
+      cursor: default;
+      background-color: darkgrey;
+    }
+
+    &_selected {
+      background-color: yellowgreen;
+
+      @include m.non-sticking-hover {
+        background-color: #EFEEB2;
+      }
+    }
+
+    &_warn {
+      background-color: cornflowerblue;
+
+      &:disabled {
+        background-color: cornflowerblue;
+      }
+    }
+
+    &_invalid {
+      background-color: maroon;
+
+      &:disabled {
+        background-color: maroon;
+      }
+    }
+  }
+}
